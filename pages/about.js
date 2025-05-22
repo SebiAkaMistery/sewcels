@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -11,6 +12,28 @@ export default function About() {
 
   return (
     <div className="bg-white text-gray-800 py-12 px-6 md:px-20">
+      <Head>
+        <title>{locale === 'ro' ? 'Despre SEWCELS - Expertiză în energie și consultanță' : 'About SEWCELS - Expertise in Energy and Consulting'}</title>
+        <meta
+          name="description"
+          content={
+            locale === 'ro'
+              ? 'Află cine suntem și cum oferim soluții strategice pentru tranziția verde și digitală. SEWCELS – partenerul tău în proiecte sustenabile.'
+              : 'Discover who we are and how we deliver strategic solutions for the green and digital transition. SEWCELS – your partner in sustainable projects.'
+          }
+        />
+        <meta property="og:title" content="SEWCELS - Despre noi" />
+        <meta
+          property="og:description"
+          content={
+            locale === 'ro'
+              ? 'Consultanță, energie regenerabilă, fonduri nerambursabile, achiziții publice și mai mult – află valorile care ne ghidează.'
+              : 'Consulting, renewable energy, funding, procurement and more – discover the values that guide us.'
+          }
+        />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta name="robots" content="index, follow" />
+      </Head>
            {/* Secțiune compactă – Prezentare SEWCELS pe imagine cu gradient */}
       <div className="relative mb-4 h-[380px] rounded-xl overflow-hidden shadow-lg">
         <img

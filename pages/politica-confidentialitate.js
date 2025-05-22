@@ -6,7 +6,26 @@ export default function PoliticaConfidentialitate() {
   return (
     <div className="bg-white text-gray-900 py-12 px-6 md:px-20">
       <Head>
-        <title>{locale === 'ro' ? 'Politica de Confidențialitate' : 'Privacy Policy'}</title>
+        <title>{locale === 'ro' ? 'Politica de Confidențialitate - SEWCELS' : 'Privacy Policy - SEWCELS'}</title>
+        <meta
+          name="description"
+          content={
+            locale === 'ro'
+              ? 'Citește Politica de Confidențialitate SEWCELS. Află cum colectăm, utilizăm și protejăm datele tale personale în acord cu GDPR.'
+              : 'Read SEWCELS Privacy Policy. Learn how we collect, use, and protect your personal data in accordance with GDPR.'
+          }
+        />
+        <meta property="og:title" content={locale === 'ro' ? 'Politica de Confidențialitate SEWCELS' : 'SEWCELS Privacy Policy'} />
+        <meta
+          property="og:description"
+          content={
+            locale === 'ro'
+              ? 'Informații despre prelucrarea datelor personale, cookie-uri și drepturile tale conform GDPR.'
+              : 'Information on personal data processing, cookies, and your rights under GDPR.'
+          }
+        />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta name="robots" content="index, follow" />
       </Head>
       <div className="max-w-5xl mx-auto text-sm leading-relaxed text-justify">
         {locale === 'ro' ? (
@@ -341,4 +360,13 @@ export default function PoliticaConfidentialitate() {
       </div>
     </div>
   );
+}
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  };
 }

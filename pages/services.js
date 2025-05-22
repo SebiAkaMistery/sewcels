@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
+import Head from 'next/head';
 import {
   Chart as ChartJS,
   BarElement,
@@ -180,6 +179,28 @@ export default function Services() {
 
   return (
     <div className="bg-white text-gray-800 py-12 px-6 md:px-16">
+      <Head>
+        <title>{locale === 'ro' ? 'Servicii SEWCELS - Consultanță, energie și finanțare' : 'SEWCELS Services - Consulting, Energy & Funding'}</title>
+        <meta
+          name="description"
+          content={
+            locale === 'ro'
+              ? 'Gama completă de servicii SEWCELS: eficiență energetică, fonduri nerambursabile, achiziții publice și intermediere financiară.'
+              : 'SEWCELS full service offering: energy efficiency, grants, public procurement and financial intermediation.'
+          }
+        />
+        <meta property="og:title" content="SEWCELS - Servicii" />
+        <meta
+          property="og:description"
+          content={
+            locale === 'ro'
+              ? 'Soluții personalizate pentru proiecte verzi și sustenabile, adaptate nevoilor fiecărui client.'
+              : 'Tailored solutions for green and sustainable projects, adapted to each client’s needs.'
+          }
+        />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta name="robots" content="index, follow" />
+      </Head>
       <h1 className="text-4xl font-bold text-blue-900 text-center mb-4">
         {locale === 'ro' ? 'Serviciile Noastre' : 'Our Services'}
       </h1>

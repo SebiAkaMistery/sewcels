@@ -1,14 +1,62 @@
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import Navbar from '../components/Navbar';
 
 export default function Home() {
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  const [showContent, setShowContent] = useState(false);
+  const { locale } = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowContent(true), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+  useEffect(() => {
+    }, [i18n.language]);
 
   return (
     <>
-      <div className="relative h-[90vh] overflow-hidden">
+      <Head>
+        <title>
+          {locale === 'ro'
+            ? 'SEWCELS - Soluții inovatoare pentru un viitor sustenabil'
+            : 'SEWCELS - Innovative Solutions for a Sustainable Future'}
+        </title>
+        <meta
+          name="description"
+          content={
+            locale === 'ro'
+              ? 'Soluții inovatoare în domeniul energiei, cercetării și dezvoltării pentru a sprijini tranziția către un viitor sustenabil.'
+              : 'Innovative solutions in energy, research and development to support the transition to a sustainable future.'
+          }
+        />
+        <meta property="og:title" content="SEWCELS" />
+        <meta
+          property="og:description"
+          content={
+            locale === 'ro'
+              ? 'Consultanță, execuție și soluții inteligente pentru energie și cercetare în România.'
+              : 'Consulting, execution and smart solutions for energy and research in Romania.'
+          }
+        />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta name="robots" content="index, follow" />
+      </Head>
+      <motion.div
+        className="w-full px-4 sm:px-6 lg:px-8"
+        initial={{ y: -80, opacity: 0 }}
+        animate={showContent ? { y: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.6 }}
+      >
+        <Navbar />
+      </motion.div>
+      <div className="relative min-h-[600px] h-screen sm:h-[90vh] overflow-hidden">
         <video
-          className="absolute top-0 left-0 w-full h-full object-cover opacity-60"
+          className="absolute top-0 left-0 w-full h-full object-cover opacity-100"
           autoPlay
           muted
           loop
@@ -17,64 +65,49 @@ export default function Home() {
           <source src="/videos/hero-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">{t('home_title')}</h1>
-          <p className="text-lg md:text-xl mb-6 max-w-3xl">{t('home_subtitle')}</p>
-          <Link href="/contact">
-            <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded text-white font-semibold transition">
-              {t('contact_title')}
-            </button>
-          </Link>
-        </div>
+        <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30 z-0" />
+        <motion.div
+          className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6"
+          initial={{ opacity: 0, y: 40 }}
+          animate={showContent ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.5, duration: 1 }}
+        >
+          <img src="/favicon-white.png" alt="SEWCELS logo" className="w-[250px] mb-64" />
+          <h1 className="text-2xl md:text-4xl font-bold mb-4 text-white max-w-xl">
+            {t('home_title')}
+          </h1>
+          <hr className="w-[60%] max-w-xl border-t border-white opacity-50 mb-4 mx-auto" />
+          <p className="text-base md:text-lg max-w-xl text-white">
+            {t('home_description')}
+          </p>
+          <motion.div
+            className="mt-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={showContent ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 1.1, duration: 0.8 }}
+          >
+            <Link
+              href="/services"
+              className="inline-block px-6 py-3 text-white font-semibold rounded-full transition duration-300 transform hover:scale-105"
+              style={{
+                background: 'linear-gradient(90deg, rgb(24, 130, 128) 0%, rgb(110, 186, 77) 100%)'
+              }}
+            >
+              {t('homepage_services_cta', { defaultValue: 'Descoperă serviciile noastre' })}
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
-
-      {/* Secțiune informativă despre energie verde */}
-      <section className="bg-white py-20 px-6 text-gray-900">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 text-center">
-          <div>
-            <h3 className="text-xl font-semibold mb-2">Economii pe termen lung</h3>
-            <p>Beneficiezi de o scădere semnificativă a costurilor pentru energie electrică.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold mb-2">Un mediu mai sănătos</h3>
-            <p>Mai puțină poluare înseamnă un mediu mai curat, mai sigur pentru generațiile viitoare.</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold mb-2">Resurse nelimitate</h3>
-            <p>Natura oferă resursele necesare pentru a ne bucura în continuare de confort.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Secțiune servicii și soluții */}
-      <section className="bg-gray-100 py-20 px-6 text-gray-900">
-        <div className="max-w-5xl mx-auto text-center mb-12">
-          <h2 className="text-3xl font-bold">Descoperă serviciile noastre!</h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto text-center">
-          <div className="p-6 bg-white shadow-md rounded">
-            <h3 className="text-xl font-semibold mb-2">Soluții de finanțare</h3>
-            <p>Identificăm programe de finanțare adecvate fiecărei soluții de eficientizare energetică și oferim întregul suport necesar.</p>
-          </div>
-          <div className="p-6 bg-white shadow-md rounded">
-            <h3 className="text-xl font-semibold mb-2">Proiectare, Execuție, Implementare</h3>
-            <p>Oferim un portofoliu complet: analiză, finanțare, implementare și mentenanță.</p>
-          </div>
-          <div className="p-6 bg-white shadow-md rounded">
-            <h3 className="text-xl font-semibold mb-2">Soluții optime pentru energie verde</h3>
-            <p>Ne ocupăm activ și depunem toate diligențele pentru găsirea și implementarea celor mai bune soluții.</p>
-          </div>
-        </div>
-      </section>
     </>
   );
 }
 
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 export async function getServerSideProps({ locale }) {
-  const { serverSideTranslations } = await import('next-i18next/serverSideTranslations');
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['common']))
     },
   };
 }

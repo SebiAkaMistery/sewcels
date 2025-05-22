@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -5,6 +6,33 @@ import { useState } from 'react';
 export default function Contact() {
   const { t } = useTranslation('common');
   const { locale } = useRouter();
+
+  // SEO meta tags
+  // Place near the top of returned JSX
+  const seoHead = (
+    <Head>
+      <title>{locale === 'ro' ? 'Contact SEWCELS - Hai să discutăm' : 'Contact SEWCELS - Let’s Connect'}</title>
+      <meta
+        name="description"
+        content={
+          locale === 'ro'
+            ? 'Contactează echipa SEWCELS pentru detalii despre proiectele tale, colaborări sau consultanță. Îți răspundem rapid și eficient.'
+            : 'Get in touch with SEWCELS for project details, collaboration or consulting. We’ll get back to you promptly and efficiently.'
+        }
+      />
+      <meta property="og:title" content="SEWCELS - Contact" />
+      <meta
+        property="og:description"
+        content={
+          locale === 'ro'
+            ? 'Scrie-ne pentru consultanță în energie, fonduri nerambursabile și soluții sustenabile. Suntem aici să ajutăm!'
+            : 'Write us for energy consulting, grants and sustainable solutions. We’re here to help!'
+        }
+      />
+      <meta property="og:image" content="/og-image.jpg" />
+      <meta name="robots" content="index, follow" />
+    </Head>
+  );
 
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
@@ -31,6 +59,7 @@ export default function Contact() {
 
   return (
     <>
+      {seoHead}
       <div
         className="relative w-full h-[300px] md:h-[400px] bg-cover bg-center flex items-center justify-center"
         style={{ backgroundImage: "url('/images/contact-banner.jpg')" }}
