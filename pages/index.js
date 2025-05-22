@@ -72,7 +72,7 @@ export default function Home() {
           animate={showContent ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          <img src="/favicon-white.png" alt="SEWCELS logo" className="w-[250px] mb-64" />
+          <img src="/favicon-white.png" alt="SEWCELS logo" className="w-[60vw] max-w-[250px] mb-24 sm:mb-48 lg:mb-64" />
           <h1 className="text-2xl md:text-4xl font-bold mb-4 text-white max-w-xl">
             {t('home_title')}
           </h1>
