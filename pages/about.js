@@ -43,7 +43,7 @@ export default function About() {
            {/* Secțiune compactă – Prezentare SEWCELS pe imagine cu gradient */}
       <div className="relative mb-4 h-[380px] rounded-xl overflow-hidden shadow-lg">
         <Image
-          src="/images/about/about-top.webp"
+          src="/images/about-top.webp"
           alt={locale === 'ro' ? 'Consultanță și energie sustenabilă' : 'Consulting and sustainable energy'}
           layout="fill"
           objectFit="cover"
@@ -212,7 +212,7 @@ export default function About() {
       <section className="mb-4 py-16 px-6 rounded-xl shadow-inner relative overflow-hidden bg-blue-900">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/about/about-illustration.webp"
+            src="/images/about-illustration.webp"
             alt={locale === 'ro' ? 'Fundal SEWCELS' : 'SEWCELS background'}
             layout="fill"
             objectFit="cover"
