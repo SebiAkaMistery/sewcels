@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import {
@@ -215,10 +216,15 @@ export default function Services() {
             key={key}
             className={`flex flex-row items-start group rounded-[10px] border border-[rgb(87,179,62)] text-[rgb(34,38,37)] font-[DM Sans] text-[16px] leading-[27.2px] transition-all duration-400 ease w-full overflow-hidden px-4 py-4 hover:bg-[linear-gradient(90deg,_rgba(24,130,128,0.9)_0%,_rgba(24,130,128,0.9)_40%,_rgba(110,186,77,0.6)_100%)] hover:bg-cover hover:bg-no-repeat hover:bg-center ${idx % 2 === 1 ? 'bg-gray-50' : 'bg-white'}`}
           >
-            <div
-              className="w-[80px] h-[80px] bg-contain bg-center bg-no-repeat rounded-md mr-4"
-              style={{ backgroundImage: `url(${image})` }}
-            />
+            <div className="w-[80px] h-[80px] relative mr-4 flex-shrink-0">
+              <Image
+                src={image}
+                alt={title[locale]}
+                layout="fill"
+                objectFit="contain"
+                className="rounded-md"
+              />
+            </div>
             <div className="flex-1">
               <h2 className="text-lg font-semibold text-gray-800 mb-2 transition-colors duration-0 group-hover:text-white">{title[locale]}</h2>
               <p className="text-gray-700 text-[15px] leading-relaxed whitespace-pre-line transition-colors duration-0 group-hover:text-white">
@@ -559,17 +565,19 @@ export default function Services() {
       <div
         className="relative max-w-4xl mx-auto h-[280px] text-white rounded-xl shadow-lg overflow-hidden mt-6 px-6"
       >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 30%), url('/images/contact-us.jpg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center bottom',
-            zIndex: 0,
-            height: '280px'
-          }}
-        />
+        <div className="absolute inset-0 z-0 h-[280px]">
+          <Image
+            src="/images/contact-us.webp"
+            alt="Contact background"
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center bottom"
+            quality={60}
+            className="rounded-xl"
+            priority={false}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent" />
+        </div>
         <div className="relative z-10 pt-4 px-6 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-2">
             {locale === 'ro' ? 'Suntem aici pentru orice întrebare' : 'We’re here for any questions'}

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import Footer from '../components/footer';
 
@@ -41,11 +42,13 @@ export default function About() {
       </Head>
            {/* Secțiune compactă – Prezentare SEWCELS pe imagine cu gradient */}
       <div className="relative mb-4 h-[380px] rounded-xl overflow-hidden shadow-lg">
-        <img
-          src="/images/about-top.jpg"
+        <Image
+          src="/images/about/about-top.webp"
           alt={locale === 'ro' ? 'Consultanță și energie sustenabilă' : 'Consulting and sustainable energy'}
-          className="w-full h-full object-cover object-[center_60%]"
-          style={{ objectPosition: '' }}
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center 60%"
+          priority
         />
         <div
           className="absolute inset-0 backdrop-blur-[1.5px] px-8 py-8 flex flex-col justify-start items-start h-full"
@@ -208,10 +211,12 @@ export default function About() {
       {/* Secțiunea – Domenii de Expertiză */}
       <section className="mb-4 py-16 px-6 rounded-xl shadow-inner relative overflow-hidden bg-blue-900">
         <div className="absolute inset-0 z-0">
-          <img
-            src="/images/about-illustration.jpg"
+          <Image
+            src="/images/about/about-illustration.webp"
             alt={locale === 'ro' ? 'Fundal SEWCELS' : 'SEWCELS background'}
-            className="w-full h-full object-cover opacity-90"
+            layout="fill"
+            objectFit="cover"
+            className="opacity-90"
           />
         </div>
         <div className="absolute inset-0 bg-blue-900/30 z-10"></div>

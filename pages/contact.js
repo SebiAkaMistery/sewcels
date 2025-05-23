@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -62,17 +63,33 @@ export default function Contact() {
   return (
     <>
       {seoHead}
-      <div
-        className="relative w-full h-[300px] md:h-[400px] bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: "url('/images/contact-banner.jpg')" }}
-      >
-        <div className="absolute inset-0 bg-black opacity-40"></div>
+      <div className="relative w-full h-[300px] md:h-[400px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/contact-banner.webp"
+            alt="Contact banner"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black opacity-40"></div>
+        </div>
         <h1 className="relative z-10 text-4xl md:text-5xl text-white font-bold text-center">
           {locale === 'ro' ? 'Hai să discutăm!' : 'Let’s Connect!'}
         </h1>
       </div>
-      <div className="min-h-screen p-8 bg-[url('/images/contact-illustration.svg')] bg-cover bg-center flex items-center justify-center backdrop-blur-sm">
-        <div className="bg-[linear-gradient(90deg,_rgba(24,130,128,0.9),_rgba(110,186,77,0.6))] p-[1.5px] rounded-[16px] transition-all duration-300 ease-in-out hover:shadow-md">
+      <div className="relative min-h-screen p-8 flex items-center justify-center backdrop-blur-sm">
+        {/* Optimized background image for illustration */}
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/images/contact-illustration.webp"
+            alt="Contact illustration"
+            fill
+            className="object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div className="bg-[linear-gradient(90deg,_rgba(24,130,128,0.9),_rgba(110,186,77,0.6))] p-[1.5px] rounded-[16px] transition-all duration-300 ease-in-out hover:shadow-md z-10">
           <div className="bg-white max-w-6xl w-full flex overflow-hidden rounded-[13px]">
           <div className="w-1/2 p-10 flex flex-col justify-center items-center space-y-6 bg-transparent rounded-l-xl">
             <div className="space-y-4 text-sm text-gray-700 font-sans text-left">
