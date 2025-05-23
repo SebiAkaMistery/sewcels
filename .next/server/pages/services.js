@@ -30,8 +30,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var private_next_pages_document_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6088);
 /* harmony import */ var private_next_pages_app_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6004);
 /* harmony import */ var private_next_pages_services_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5147);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([private_next_pages_app_js__WEBPACK_IMPORTED_MODULE_3__, private_next_pages_services_js__WEBPACK_IMPORTED_MODULE_4__]);
-([private_next_pages_app_js__WEBPACK_IMPORTED_MODULE_3__, private_next_pages_services_js__WEBPACK_IMPORTED_MODULE_4__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([private_next_pages_services_js__WEBPACK_IMPORTED_MODULE_4__]);
+private_next_pages_services_js__WEBPACK_IMPORTED_MODULE_4__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
 
         // Next.js Route Loader
         
@@ -92,16 +92,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5893);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1853);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(968);
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(3767);
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(738);
-/* harmony import */ var chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(723);
-/* harmony import */ var chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_6__);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([chart_js__WEBPACK_IMPORTED_MODULE_4__, react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__]);
-([chart_js__WEBPACK_IMPORTED_MODULE_4__, react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var next_image__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5675);
+/* harmony import */ var next_image__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_image__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1853);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(968);
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3767);
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(738);
+/* harmony import */ var chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(723);
+/* harmony import */ var chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_7__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([chart_js__WEBPACK_IMPORTED_MODULE_5__, react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__]);
+([chart_js__WEBPACK_IMPORTED_MODULE_5__, react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
 
 
@@ -109,9 +111,10 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([char
 
 
 
-chart_js__WEBPACK_IMPORTED_MODULE_4__.Chart.register(chart_js__WEBPACK_IMPORTED_MODULE_4__.BarElement, chart_js__WEBPACK_IMPORTED_MODULE_4__.CategoryScale, chart_js__WEBPACK_IMPORTED_MODULE_4__.LinearScale, chart_js__WEBPACK_IMPORTED_MODULE_4__.Tooltip, chart_js__WEBPACK_IMPORTED_MODULE_4__.Legend, (chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_6___default()));
+
+chart_js__WEBPACK_IMPORTED_MODULE_5__.Chart.register(chart_js__WEBPACK_IMPORTED_MODULE_5__.BarElement, chart_js__WEBPACK_IMPORTED_MODULE_5__.CategoryScale, chart_js__WEBPACK_IMPORTED_MODULE_5__.LinearScale, chart_js__WEBPACK_IMPORTED_MODULE_5__.Tooltip, chart_js__WEBPACK_IMPORTED_MODULE_5__.Legend, (chartjs_plugin_datalabels__WEBPACK_IMPORTED_MODULE_7___default()));
 function Services() {
-    const { locale } = (0,next_router__WEBPACK_IMPORTED_MODULE_2__.useRouter)();
+    const { locale } = (0,next_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
     const [isModalOpen, setModalOpen] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [monthlyData, setMonthlyData] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(new Array(12).fill(0));
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>{
@@ -258,7 +261,7 @@ function Services() {
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "bg-white text-gray-800 py-12 px-6 md:px-16",
         children: [
-            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((next_head__WEBPACK_IMPORTED_MODULE_3___default()), {
+            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)((next_head__WEBPACK_IMPORTED_MODULE_4___default()), {
                 children: [
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("title", {
                         children: locale === "ro" ? "Servicii SEWCELS - Consultanță, energie și finanțare" : "SEWCELS Services - Consulting, Energy & Funding"
@@ -299,10 +302,14 @@ function Services() {
                         className: `flex flex-row items-start group rounded-[10px] border border-[rgb(87,179,62)] text-[rgb(34,38,37)] font-[DM Sans] text-[16px] leading-[27.2px] transition-all duration-400 ease w-full overflow-hidden px-4 py-4 hover:bg-[linear-gradient(90deg,_rgba(24,130,128,0.9)_0%,_rgba(24,130,128,0.9)_40%,_rgba(110,186,77,0.6)_100%)] hover:bg-cover hover:bg-no-repeat hover:bg-center ${idx % 2 === 1 ? "bg-gray-50" : "bg-white"}`,
                         children: [
                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                                className: "w-[80px] h-[80px] bg-contain bg-center bg-no-repeat rounded-md mr-4",
-                                style: {
-                                    backgroundImage: `url(${image})`
-                                }
+                                className: "w-[80px] h-[80px] relative mr-4 flex-shrink-0",
+                                children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_image__WEBPACK_IMPORTED_MODULE_2___default()), {
+                                    src: image,
+                                    alt: title[locale],
+                                    layout: "fill",
+                                    objectFit: "contain",
+                                    className: "rounded-md"
+                                })
                             }),
                             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                                 className: "flex-1",
@@ -557,7 +564,7 @@ function Services() {
                                         }),
                                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                                             className: "mt-4 w-full h-[300px] md:h-[400px]",
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__.Bar, {
+                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__.Bar, {
                                                 data: {
                                                     labels: [
                                                         "Ian",
@@ -809,15 +816,24 @@ function Services() {
             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                 className: "relative max-w-4xl mx-auto h-[280px] text-white rounded-xl shadow-lg overflow-hidden mt-6 px-6",
                 children: [
-                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
-                        className: "absolute inset-0",
-                        style: {
-                            backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 30%), url('/images/contact-us.jpg')",
-                            backgroundSize: "cover",
-                            backgroundPosition: "center bottom",
-                            zIndex: 0,
-                            height: "280px"
-                        }
+                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                        className: "absolute inset-0 z-0 h-[280px]",
+                        children: [
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx((next_image__WEBPACK_IMPORTED_MODULE_2___default()), {
+                                src: "/images/contact-us.webp",
+                                alt: "Contact background",
+                                layout: "fill",
+                                objectFit: "cover",
+                                objectPosition: "center bottom",
+                                quality: 60,
+                                className: "rounded-xl",
+                                priority: false,
+                                loading: "lazy"
+                            }),
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                                className: "absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent"
+                            })
+                        ]
                     }),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                         className: "relative z-10 pt-4 px-6 text-center",
@@ -1095,10 +1111,17 @@ module.exports = require("next/dist/server/utils.js");
 
 /***/ }),
 
-/***/ 3280:
+/***/ 3918:
 /***/ ((module) => {
 
-module.exports = require("next/dist/shared/lib/app-router-context.js");
+module.exports = require("next/dist/shared/lib/amp-context.js");
+
+/***/ }),
+
+/***/ 5732:
+/***/ ((module) => {
+
+module.exports = require("next/dist/shared/lib/amp-mode.js");
 
 /***/ }),
 
@@ -1106,6 +1129,13 @@ module.exports = require("next/dist/shared/lib/app-router-context.js");
 /***/ ((module) => {
 
 module.exports = require("next/dist/shared/lib/constants.js");
+
+/***/ }),
+
+/***/ 5132:
+/***/ ((module) => {
+
+module.exports = require("next/dist/shared/lib/get-img-props.js");
 
 /***/ }),
 
@@ -1123,17 +1153,17 @@ module.exports = require("next/dist/shared/lib/html-context.js");
 
 /***/ }),
 
-/***/ 3539:
+/***/ 744:
 /***/ ((module) => {
 
-module.exports = require("next/dist/shared/lib/i18n/detect-domain-locale.js");
+module.exports = require("next/dist/shared/lib/image-config-context.js");
 
 /***/ }),
 
-/***/ 4014:
+/***/ 5843:
 /***/ ((module) => {
 
-module.exports = require("next/dist/shared/lib/i18n/normalize-locale-path.js");
+module.exports = require("next/dist/shared/lib/image-config.js");
 
 /***/ }),
 
@@ -1144,6 +1174,13 @@ module.exports = require("next/dist/shared/lib/is-plain-object.js");
 
 /***/ }),
 
+/***/ 5832:
+/***/ ((module) => {
+
+module.exports = require("next/dist/shared/lib/loadable.js");
+
+/***/ }),
+
 /***/ 4964:
 /***/ ((module) => {
 
@@ -1151,59 +1188,17 @@ module.exports = require("next/dist/shared/lib/router-context.js");
 
 /***/ }),
 
-/***/ 3431:
+/***/ 2470:
 /***/ ((module) => {
 
-module.exports = require("next/dist/shared/lib/router/utils/add-locale.js");
+module.exports = require("next/dist/shared/lib/side-effect.js");
 
 /***/ }),
 
-/***/ 1751:
+/***/ 618:
 /***/ ((module) => {
 
-module.exports = require("next/dist/shared/lib/router/utils/add-path-prefix.js");
-
-/***/ }),
-
-/***/ 3938:
-/***/ ((module) => {
-
-module.exports = require("next/dist/shared/lib/router/utils/format-url.js");
-
-/***/ }),
-
-/***/ 1109:
-/***/ ((module) => {
-
-module.exports = require("next/dist/shared/lib/router/utils/is-local-url.js");
-
-/***/ }),
-
-/***/ 8854:
-/***/ ((module) => {
-
-module.exports = require("next/dist/shared/lib/router/utils/parse-path.js");
-
-/***/ }),
-
-/***/ 3297:
-/***/ ((module) => {
-
-module.exports = require("next/dist/shared/lib/router/utils/remove-trailing-slash.js");
-
-/***/ }),
-
-/***/ 7782:
-/***/ ((module) => {
-
-module.exports = require("next/dist/shared/lib/router/utils/resolve-href.js");
-
-/***/ }),
-
-/***/ 9232:
-/***/ ((module) => {
-
-module.exports = require("next/dist/shared/lib/utils.js");
+module.exports = require("next/dist/shared/lib/utils/warn-once.js");
 
 /***/ }),
 
@@ -1242,13 +1237,6 @@ module.exports = import("chart.js");;
 
 /***/ }),
 
-/***/ 6197:
-/***/ ((module) => {
-
-module.exports = import("framer-motion");;
-
-/***/ }),
-
 /***/ 738:
 /***/ ((module) => {
 
@@ -1263,7 +1251,7 @@ module.exports = import("react-chartjs-2");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [289,947], () => (__webpack_exec__(6152)));
+var __webpack_exports__ = __webpack_require__.X(0, [914,636,675,947], () => (__webpack_exec__(6152)));
 module.exports = __webpack_exports__;
 
 })();

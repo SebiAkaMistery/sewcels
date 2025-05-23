@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
@@ -43,10 +44,12 @@ export default function Navbar() {
       <div className="max-w-7xl w-full mx-auto flex items-center justify-between">
         {/* LOGO */}
         <Link href="/" className="shrink-0 mr-10">
-          <img
-            src={scrolled ? '/logo-sewcels-white.png' : '/logo-sewcels.png'}
+          <Image
+            src={scrolled ? '/logo-sewcels-white.webp' : '/logo-sewcels.webp'}
             alt="Sewcels Logo"
-            className="h-10 w-auto"
+            width={120}
+            height={40}
+            priority
           />
         </Link>
 

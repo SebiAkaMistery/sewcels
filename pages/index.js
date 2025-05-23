@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Navbar from '../components/Navbar';
+import Image from 'next/image';
 
 export default function Home() {
   const { t, i18n } = useTranslation('common');
@@ -73,10 +74,13 @@ export default function Home() {
           animate={showContent ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          <img
-            src="/favicon-white.png"
+          <Image
+            src="/favicon-white.webp"
             alt="SEWCELS logo"
+            width={200}
+            height={200}
             className="w-[50vw] max-w-[200px] h-auto mb-24 sm:mb-48 lg:mb-64 object-contain"
+            priority
           />
           <h1 className="text-2xl md:text-4xl font-bold mb-4 text-white max-w-xl">
             {t('home_title')}

@@ -575,6 +575,7 @@ export default function Services() {
             quality={60}
             className="rounded-xl"
             priority={false}
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent" />
         </div>

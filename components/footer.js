@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -12,7 +13,13 @@ export default function Footer() {
         
         <div className="flex flex-col items-start text-left">
           <a href="/">
-            <img src="/favicon-white.png" alt="Sewcels Icon" className="h-[120px] w-[120px] mb-4" />
+            <Image
+              src="/favicon-white.webp"
+              alt="Sewcels Icon"
+              width={120}
+              height={120}
+              className="mb-4"
+            />
           </a>
           <span className="text-gray-200 italic text-sm">
             {locale === 'ro' ? 'Your business partner' : 'Your business partner'}
