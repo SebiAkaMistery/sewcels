@@ -1,4 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /_next/
+Disallow: /api/
+Disallow: /*.vercel.app/
 
 Sitemap: https://sewcels.ro/sitemap.xml

@@ -1,7 +1,17 @@
 {
   "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/_error": "pages/_error.js",
+  "/api/newsletter": "pages/api/newsletter.js",
+  "/api/contact": "pages/api/contact.js",
+  "/about": "pages/about.js",
   "/": "pages/index.js",
-  "/services": "pages/services.js"
+  "/granturi-green": "pages/granturi-green.js",
+  "/contact": "pages/contact.js",
+  "/politica-confidentialitate": "pages/politica-confidentialitate.js",
+  "/services": "pages/services.js",
+  "/ro/404": "pages/ro/404.html",
+  "/en/404": "pages/en/404.html",
+  "/ro/500": "pages/ro/500.html",
+  "/en/500": "pages/en/500.html"
 }

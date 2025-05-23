@@ -44,15 +44,8 @@ export default function Home() {
           }
         />
         <meta property="og:image" content="/og-image.jpg" />
-        <meta name="robots" content={typeof window !== 'undefined' && window.location.hostname.includes('vercel.app') ? 'noindex, nofollow' : 'index, follow'} />
-        <link
-          rel="canonical"
-          href={
-            typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')
-              ? 'https://sewcels.ro/'
-              : window?.location?.origin || 'https://sewcels.ro/'
-          }
-        />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://sewcels.ro/" />
       </Head>
       <motion.div
         className="w-full px-4 sm:px-6 lg:px-8"
