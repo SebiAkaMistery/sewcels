@@ -217,6 +217,7 @@ export default function About() {
             layout="fill"
             objectFit="cover"
             className="opacity-90"
+            priority
           />
         </div>
         <div className="absolute inset-0 bg-blue-900/30 z-10"></div>
