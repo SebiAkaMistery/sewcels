@@ -628,6 +628,10 @@ function MyApp({ Component, pageProps }) {
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("link", {
                         rel: "canonical",
                         href: `https://sewcels.ro${router.asPath}`
+                    }),
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("link", {
+                        rel: "icon",
+                        href: "/favicon.ico"
                     })
                 ]
             }),

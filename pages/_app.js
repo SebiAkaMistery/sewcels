@@ -16,6 +16,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={`https://sewcels.ro${router.asPath}`} />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Script
         strategy="afterInteractive"

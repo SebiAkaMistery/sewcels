@@ -1,11 +1,11 @@
 {
   "version": 1,
   "functions": {
-    "/contact": {},
-    "/": {},
     "/granturi-green": {},
+    "/": {},
+    "/about": {},
     "/politica-confidentialitate": {},
     "/services": {},
-    "/about": {}
+    "/contact": {}
   }
 }
