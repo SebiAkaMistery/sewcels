@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /sewcels-collab-starter.vercel.app
-Allow: /
+Disallow:
 
 Sitemap: https://sewcels.ro/sitemap.xml

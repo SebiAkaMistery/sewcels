@@ -200,6 +200,10 @@ export default function Services() {
         />
         <meta property="og:image" content="/og-image.jpg" />
         <meta name="robots" content="index, follow" />
+        <link
+          rel="canonical"
+          href={`https://sewcels.ro/${locale === 'ro' ? 'ro' : 'en'}/services`}
+        />
       </Head>
       <h1 className="text-4xl font-bold text-blue-900 text-center mb-4">
         {locale === 'ro' ? 'Serviciile Noastre' : 'Our Services'}

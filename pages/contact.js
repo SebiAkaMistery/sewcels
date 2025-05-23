@@ -31,6 +31,8 @@ export default function Contact() {
       />
       <meta property="og:image" content="/og-image.jpg" />
       <meta name="robots" content="index, follow" />
+      <link rel="canonical" href="https://sewcels.ro/contact" />
+      <meta name="googlebot" content="noindex" />
     </Head>
   );
 

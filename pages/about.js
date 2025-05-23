@@ -33,6 +33,11 @@ export default function About() {
         />
         <meta property="og:image" content="/og-image.jpg" />
         <meta name="robots" content="index, follow" />
+        {/* Canonical and robots meta for Vercel preview */}
+        <link rel="canonical" href={`https://sewcels.ro${locale === 'en' ? '/en/about' : '/ro/about'}`} />
+        {typeof window !== 'undefined' && window.location.hostname.includes('vercel.app') && (
+          <meta name="robots" content="noindex, nofollow" />
+        )}
       </Head>
            {/* Secțiune compactă – Prezentare SEWCELS pe imagine cu gradient */}
       <div className="relative mb-4 h-[380px] rounded-xl overflow-hidden shadow-lg">

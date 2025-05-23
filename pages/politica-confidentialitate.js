@@ -26,6 +26,7 @@ export default function PoliticaConfidentialitate() {
         />
         <meta property="og:image" content="/og-image.jpg" />
         <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={`https://sewcels.ro/${locale === 'ro' ? 'ro' : 'en'}/politica-confidentialitate`} />
       </Head>
       <div className="max-w-5xl mx-auto text-sm leading-relaxed text-justify">
         {locale === 'ro' ? (
