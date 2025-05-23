@@ -214,8 +214,10 @@ export default function About() {
           <Image
             src="/images/about-illustration.webp"
             alt={locale === 'ro' ? 'Fundal SEWCELS' : 'SEWCELS background'}
-            layout="fill"
-            objectFit="cover"
+            layout="responsive"
+            width={1200}
+            height={800}
+            sizes="(max-width: 768px) 100vw, 1200px"
             className="opacity-90"
             priority
           />
