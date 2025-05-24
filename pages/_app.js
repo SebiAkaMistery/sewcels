@@ -60,12 +60,13 @@ function MyApp({ Component, pageProps }) {
         {isHome ? (
           <>
             <Component {...pageProps} />
-            <ScrollIndicator />
           </>
         ) : (
           <Layout>
             <Component {...pageProps} />
-            <ScrollIndicator />
+            {!isHome && (
+              <ScrollIndicator />
+            )}
           </Layout>
         )}
       </>
