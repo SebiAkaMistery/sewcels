@@ -1,23 +1,20 @@
 {
   "../components/Layout.js -> ./Navbar": {
-    "id": 6568,
+    "id": "../components/Layout.js -> ./Navbar",
     "files": [
-      "static/chunks/664-d32e4e6ee1468c97.js",
-      "static/chunks/324-fc2eb815d0a0e460.js",
-      "static/chunks/568.22408f212e8139e0.js"
+      "static/chunks/components_Navbar_js.js"
     ]
   },
   "_app.js -> ../components/Layout": {
-    "id": 7345,
+    "id": "_app.js -> ../components/Layout",
     "files": [
-      "static/chunks/675-82375999dc35899a.js",
-      "static/chunks/345.df514beebd7d3c2a.js"
+      "static/chunks/components_Layout_js.js"
     ]
   },
   "_app.js -> next/script": {
-    "id": 4298,
+    "id": "_app.js -> next/script",
     "files": [
-      "static/chunks/298.218a8f2aac5cba02.js"
+      "static/chunks/node_modules_next_script_js.js"
     ]
   }
 }
