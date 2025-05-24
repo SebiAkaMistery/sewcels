@@ -25,7 +25,8 @@ export default function GranturiGreen() {
         <p className="max-w-3xl mx-auto text-center text-lg text-gray-700 text-justify">
           Pagina dedicată programelor active de finanțare nerambursabilă și scheme de ajutor de stat pentru investiții sustenabile.
         </p>
-        <div className="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg flex flex-col sm:flex-row items-center gap-6">
+        <div className="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg flex flex-col items-center gap-6">
+          {/* Card 1 */}
           <div className="flex-1">
             <h2 className="text-2xl font-semibold text-gray-900 mb-2">
               Fondul pentru Modernizare - Autoconsum
@@ -37,6 +38,21 @@ export default function GranturiGreen() {
           <div>
             <Link
               href="/fondul-modernizare-autoconsum"
+              className="inline-block font-semibold px-6 py-3 rounded-full border border-green-700 bg-gradient-to-r from-[#188282] to-[#6eba4d] text-white shadow-lg transition-colors duration-300 ease-in-out hover:from-[#166f6e] hover:to-[#5a9d38]"
+            >
+              Vezi detalii
+            </Link>
+          </div>
+          {/* Card 2 */}
+          <div className="flex-1">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-2">Programul Electric-Up 2</h2>
+            <p className="text-gray-700 mb-4 text-justify">
+              A doua etapă a programului Electric-Up, care sprijină IMM-urile și sectorul HORECA să instaleze sisteme fotovoltaice și stații de încărcare pentru vehicule electrice.
+            </p>
+          </div>
+          <div>
+            <Link
+              href="/electric-up2"
               className="inline-block font-semibold px-6 py-3 rounded-full border border-green-700 bg-gradient-to-r from-[#188282] to-[#6eba4d] text-white shadow-lg transition-colors duration-300 ease-in-out hover:from-[#166f6e] hover:to-[#5a9d38]"
             >
               Vezi detalii

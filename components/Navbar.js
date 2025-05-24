@@ -106,26 +106,50 @@ export default function Navbar() {
                     </svg>
                   </span>
                 </Link>
-                <ul className="absolute left-0 top-full mt-1 w-max rounded-full opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300 z-20 px-0 py-2 flex flex-col gap-2">
+                <ul className="absolute left-0 top-full mt-1 w-max bg-white opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300 z-20 px-0 py-2 flex flex-col gap-2 rounded-md shadow-md">
                   <li>
-                    <Link
-                      href="/fondul-modernizare-autoconsum"
-                      className="group inline-flex items-center gap-2 font-semibold px-10 py-3 rounded-full border border-green-700 text-green-700 text-sm transition-colors duration-300 hover:bg-gradient-to-r hover:from-[#188282] hover:to-[#6eba4d] hover:text-white focus:outline-none outline-none shadow-none"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4 transition-transform duration-300 ease-in-out transform scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                    <motion.div whileHover={{ scale: 1.05 }} className="group">
+                      <Link
+                        href="/fondul-modernizare-autoconsum"
+                        className="group inline-flex items-center gap-2 font-semibold px-6 py-1.5 rounded-full border border-green-700 text-black text-sm transition-colors duration-300 bg-transparent hover:bg-gradient-to-r hover:from-[#188282] hover:to-[#6eba4d] hover:text-white focus:outline-none outline-none shadow-none"
                       >
-                        <path d="M9 18l6-6-6-6" />
-                      </svg>
-                      {locale === 'ro' ? 'Fondul pentru Modernizare - Autoconsum' : 'Modernization Fund - Self-consumption'}
-                    </Link>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 transition-transform duration-300 ease-in-out transform scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M9 18l6-6-6-6" />
+                        </svg>
+                        {locale === 'ro' ? 'Fondul pentru Modernizare - Autoconsum' : 'Modernization Fund - Self-consumption'}
+                      </Link>
+                    </motion.div>
+                  </li>
+                  <li>
+                    <motion.div whileHover={{ scale: 1.05 }} className="group">
+                      <Link
+                        href="/electric-up2"
+                        className="group inline-flex items-center gap-2 font-semibold px-6 py-1.5 rounded-full border border-green-700 text-black text-sm transition-colors duration-300 bg-transparent hover:bg-gradient-to-r hover:from-[#188282] hover:to-[#6eba4d] hover:text-white focus:outline-none outline-none shadow-none"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 transition-transform duration-300 ease-in-out transform scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M9 18l6-6-6-6" />
+                        </svg>
+                        Electric Up 2
+                      </Link>
+                    </motion.div>
                   </li>
                 </ul>
               </li>
