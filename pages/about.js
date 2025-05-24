@@ -6,10 +6,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import Footer from '../components/footer';
+import ContactModal from '../components/ContactModal';
 
 export default function About() {
   const { locale } = useRouter();
-  const [showModal, setShowModal] = useState(false);
+  const [isContactOpen, setContactOpen] = useState(false);
 
   return (
     <div className="bg-white text-gray-800 py-12 px-6 md:px-20">
@@ -51,18 +52,19 @@ export default function About() {
           priority
         />
         <div
-          className="absolute inset-0 backdrop-blur-[1.5px] px-8 py-8 flex flex-col justify-start items-start h-full"
+          className="absolute inset-0 backdrop-blur-[1.5px] px-6 py-8 sm:px-8 flex flex-col justify-start items-start h-full max-w-full overflow-hidden"
           style={{
-            backgroundImage: 'linear-gradient(90deg, rgba(24,130,128,0.9) 0%, rgba(24,130,128,0.9) 40%, rgba(110,186,77,0.6) 60%, rgba(255,255,255,0) 100%)'
+            backgroundImage:
+              'linear-gradient(90deg, rgba(24,130,128,0.9) 0%, rgba(24,130,128,0.9) 40%, rgba(110,186,77,0.6) 60%, rgba(255,255,255,0) 100%)',
           }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow w-full">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow max-w-full break-words text-center w-full">
             {locale === 'ro'
               ? 'SEWCELS - Consultanță strategică pentru o economie sustenabilă'
               : 'SEWCELS - Strategic Consulting for a Sustainable Economy'}
           </h2>
-          <div className="text-white w-full max-w-full sm:max-w-[90%] lg:max-w-[60%] xl:max-w-[45%]">
-            <p className="text-sm md:text-base leading-relaxed text-justify drop-shadow break-words">
+          <div className="text-white w-full max-w-full sm:max-w-[90%] lg:max-w-[60%] xl:max-w-[45%] break-words">
+            <p className="text-xs sm:text-sm md:text-base leading-relaxed text-justify drop-shadow max-w-full break-words">
               {locale === 'ro'
                 ? 'Suntem o companie de consultanță fondată din dorința de a aduce claritate, eficiență și rezultate concrete în domenii esențiale pentru tranziția verde și digitală a economiei. Ne adresăm atât sectorului public, cât și investitorilor privați care doresc să construiască proiecte durabile și bine finanțate. Oferim servicii integrate pentru energie regenerabilă, fonduri nerambursabile, achiziții publice și intermediere financiară. Echipa noastră combină expertiza practică cu înțelegerea profundă a cadrului instituțional și a cerințelor legislative, acționând ca un partener de încredere în toate etapele proiectelor.'
                 : 'We are a consultancy firm founded out of the desire to bring clarity, efficiency and concrete results in key sectors for the green and digital economic transition. We serve both public institutions and private investors seeking to develop sustainable, well-financed projects. We provide integrated services in renewable energy, non-reimbursable funds, public procurement and financial intermediation. Our team combines hands-on experience with deep institutional and legislative knowledge, acting as a trusted partner throughout all project phases.'}
@@ -83,10 +85,10 @@ export default function About() {
               : 'Do you have an idea, an initiative or a project in early stages? Our team can guide you from concept to implementation, with strategic solutions and the right funding sources. Let’s discover together what we can build.'}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              onClick={() => setShowModal(true)}
-              role="button"
-              className="cursor-pointer group w-full sm:w-auto relative inline-flex items-center justify-center px-8 py-4 font-medium text-white transition duration-300 ease-out rounded-full shadow-md bg-[linear-gradient(90deg,_rgb(24,130,128)_0%,_rgb(110,186,77)_100%)] hover:scale-[1.03] hover:shadow-[0_0_14px_rgba(110,186,77,0.4)] overflow-hidden"
+            <button
+              onClick={() => setContactOpen(true)}
+              className="inline-block font-semibold px-6 py-3 rounded-full border border-green-700 transition-colors duration-100 bg-white text-green-700 group hover:bg-[linear-gradient(90deg,_rgba(24,130,128,0.9)_0%,_rgba(24,130,128,0.9)_40%,_rgba(110,186,77,0.6)_100%)] hover:text-white"
+              type="button"
             >
               <span
                 className="btn-icon transform transition-transform duration-300 translate-x-0 group-hover:-translate-x-3 group-hover:opacity-100 opacity-0 absolute left-4"
@@ -103,13 +105,13 @@ export default function About() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </span>
-              <span className="btn-txt transition-all duration-300 mx-2" data-text={locale === 'ro' ? 'Solicită o discuție' : 'Request a Call'}>
+              <span className="btn-txt transition-colors duration-75 mx-2" data-text={locale === 'ro' ? 'Solicită o discuție' : 'Request a Call'}>
                 {locale === 'ro' ? 'Solicită o discuție' : 'Request a Call'}
               </span>
-            </a>
+            </button>
             <Link href="/services" passHref legacyBehavior>
               <a
-                className="group w-full sm:w-auto relative inline-flex items-center justify-center px-8 py-4 font-medium text-white transition duration-300 ease-out rounded-full shadow-md bg-[linear-gradient(90deg,_rgb(24,130,128)_0%,_rgb(110,186,77)_100%)] hover:scale-[1.03] hover:shadow-[0_0_14px_rgba(110,186,77,0.4)] overflow-hidden"
+                className="inline-block font-semibold px-6 py-3 rounded-full border border-green-700 transition-colors duration-100 bg-white text-green-700 group hover:bg-[linear-gradient(90deg,_rgba(24,130,128,0.9)_0%,_rgba(24,130,128,0.9)_40%,_rgba(110,186,77,0.6)_100%)] hover:text-white"
               >
                 <span
                   className="btn-icon transform transition-transform duration-300 translate-x-0 group-hover:-translate-x-3 group-hover:opacity-100 opacity-0 absolute left-4"
@@ -126,7 +128,7 @@ export default function About() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
                 </span>
-                <span className="btn-txt transition-all duration-300 mx-2" data-text={locale === 'ro' ? 'Descoperă serviciile' : 'Discover Services'}>
+                <span className="btn-txt transition-colors duration-75 mx-2" data-text={locale === 'ro' ? 'Descoperă serviciile' : 'Discover Services'}>
                   {locale === 'ro' ? 'Descoperă serviciile' : 'Discover Services'}
                 </span>
               </a>
@@ -175,7 +177,7 @@ export default function About() {
               <div className="text-4xl mt-1">🌱</div>
               <div>
                 <h3 className="text-xl font-semibold text-blue-800 mb-2">
-                  {locale === 'ro' ? 'Impact sustenabil & societal' : 'Sustainable & Societal Impact'}
+                  {locale === 'ro' ? 'Impact sustenabil și responsabilitate ESG' : 'Sustainable Impact and ESG Responsibility'}
                 </h3>
                 <p className="text-gray-700 text-sm text-justify">
                   {locale === 'ro'
@@ -330,148 +332,7 @@ export default function About() {
         </div>
       </section>
 
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full relative">
-            <button
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
-              onClick={() => setShowModal(false)}
-            >
-              ✕
-            </button>
-            <h3 className="text-xl font-bold mb-4 text-blue-900">
-              {locale === 'ro' ? 'Formular de Contact' : 'Contact Form'}
-            </h3>
-            <form
-              className="flex flex-col gap-4"
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const data = Object.fromEntries(formData.entries());
-
-                try {
-                  // Map selected interest to label text
-                  const interestLabels = {
-                    efficiency: 'Consultanță pentru Eficiență Energetică',
-                    pv: 'Proiecte fotovoltaice',
-                    bess: 'Sisteme de stocare (BESS) și integrare hibridă',
-                    atr: 'Consultanță pentru obținere ATR',
-                    anre: 'Avize și licențiere ANRE',
-                    ppa: 'Proiecte PPA (Power Purchase Agreements)',
-                    funding: 'Fonduri Nerambursabile & Ajutoare de Stat',
-                    procurement: 'Consultanță pentru Achiziții Publice & Licitații',
-                    investors: 'Investitori & Intermediere Bancară',
-                  };
-                  data.interest = interestLabels[data.interest] || data.interest;
-
-                  const response = await fetch('/api/contact', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                  });
-
-                  if (response.ok) {
-                    alert(locale === 'ro' ? 'Mesaj trimis cu succes!' : 'Message sent successfully!');
-                    e.target.reset();
-                    setShowModal(false);
-                  } else {
-                    alert(locale === 'ro' ? 'A apărut o eroare. Încearcă din nou.' : 'An error occurred. Please try again.');
-                  }
-                } catch (error) {
-                  console.error(error);
-                  alert(locale === 'ro' ? 'A apărut o eroare.' : 'Something went wrong.');
-                }
-              }}
-            >
-              <input
-                type="text"
-                name="name"
-                placeholder={locale === 'ro' ? 'Nume complet' : 'Full name'}
-                className="border border-gray-300 px-4 py-2 rounded"
-                required
-              />
-              <input
-                type="text"
-                name="company"
-                placeholder={locale === 'ro' ? 'Compania' : 'Company'}
-                className="border border-gray-300 px-4 py-2 rounded"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                className="border border-gray-300 px-4 py-2 rounded"
-                required
-              />
-              <input
-                type="text"
-                name="phone"
-                placeholder={locale === 'ro' ? 'Număr de telefon' : 'Phone number'}
-                className="border border-gray-300 px-4 py-2 rounded"
-                required
-              />
-
-              <select
-                name="interest"
-                className="border border-gray-300 px-4 py-2 rounded bg-white text-gray-700"
-                required
-              >
-                <option value="">{locale === 'ro' ? 'Selectează obiectul interesului' : 'Select area of interest'}</option>
-                <option value="efficiency">{locale === 'ro' ? 'Consultanță pentru Eficiență Energetică' : 'Energy Efficiency Consulting'}</option>
-                <option value="pv">{locale === 'ro' ? 'Proiecte fotovoltaice' : 'Photovoltaic Projects'}</option>
-                <option value="bess">{locale === 'ro' ? 'Sisteme de stocare (BESS) și integrare hibridă' : 'BESS & Hybrid Integration'}</option>
-                <option value="atr">{locale === 'ro' ? 'Consultanță pentru obținere ATR' : 'Grid Access Permit (ATR) Consulting'}</option>
-                <option value="anre">{locale === 'ro' ? 'Avize și licențiere ANRE' : 'ANRE Licensing & Approvals'}</option>
-                <option value="ppa">{locale === 'ro' ? 'Proiecte PPA (Power Purchase Agreements)' : 'PPA (Power Purchase Agreements) Projects'}</option>
-                <option value="funding">{locale === 'ro' ? 'Fonduri Nerambursabile & Ajutoare de Stat' : 'Grants & State Aid'}</option>
-                <option value="procurement">{locale === 'ro' ? 'Consultanță pentru Achiziții Publice & Licitații' : 'Public Procurement & Tender Consulting'}</option>
-                <option value="investors">{locale === 'ro' ? 'Investitori & Intermediere Bancară' : 'Investors & Banking Intermediation'}</option>
-              </select>
-
-              <textarea
-                name="message"
-                rows="4"
-                placeholder={locale === 'ro' ? 'Mesajul tău...' : 'Your message...'}
-                className="border border-gray-300 px-4 py-2 rounded"
-                required
-              />
-              <label className="text-sm text-gray-700 flex items-start gap-2">
-                <input type="checkbox" required className="mt-1" name="privacy" />
-                <span>
-                  {locale === 'ro'
-                    ? <>Sunteți de acord cu
-                        <a
-                          href="/politica-confidentialitate"
-                          className="underline text-blue-700 hover:text-blue-900 ml-1"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          politica noastră de confidențialitate
-                        </a>.
-                      </>
-                    : <>You agree with our
-                        <a
-                          href="/politica-confidentialitate"
-                          className="underline text-blue-700 hover:text-blue-900 ml-1"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          privacy policy
-                        </a>.
-                      </>
-                  }
-                </span>
-              </label>
-              <button type="submit" className="bg-blue-900 text-white font-semibold px-4 py-2 rounded hover:bg-blue-800">
-                {locale === 'ro' ? 'Trimite' : 'Send'}
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+      <ContactModal isOpen={isContactOpen} onClose={() => setContactOpen(false)} />
     </div>
   );
 }

@@ -6,7 +6,6 @@ export default function Document() {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index, follow" />
         {/* Canonical link can be set dynamically in each page */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

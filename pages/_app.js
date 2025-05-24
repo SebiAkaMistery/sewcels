@@ -7,6 +7,7 @@ const Script = dynamic(() => import('next/script'), { ssr: false });
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
+import ScrollIndicator from '../components/ScrollIndicator';
 
 // 🔧 Recomandări generale pentru performanță:
 // - Folosește `next/image` pentru imagini în loc de <img src="" />
@@ -57,10 +58,14 @@ function MyApp({ Component, pageProps }) {
           `}
         </Script>
         {isHome ? (
-          <Component {...pageProps} />
+          <>
+            <Component {...pageProps} />
+            <ScrollIndicator />
+          </>
         ) : (
           <Layout>
             <Component {...pageProps} />
+            <ScrollIndicator />
           </Layout>
         )}
       </>

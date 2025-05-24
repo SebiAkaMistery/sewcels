@@ -97,10 +97,7 @@ export default function Home() {
           >
             <Link
               href="/services"
-              className="inline-block px-6 py-3 text-white font-semibold rounded-full transition duration-300 transform hover:scale-105"
-              style={{
-                background: 'linear-gradient(90deg, rgb(24, 130, 128) 0%, rgb(110, 186, 77) 100%)'
-              }}
+              className="inline-block font-semibold px-6 py-3 rounded-full border border-green-700 transition-colors duration-100 bg-white text-green-700 group hover:bg-[linear-gradient(90deg,_rgba(24,130,128,0.9)_0%,_rgba(24,130,128,0.9)_40%,_rgba(110,186,77,0.6)_100%)] hover:text-white"
             >
               {t('homepage_services_cta', { defaultValue: 'Descoperă serviciile noastre' })}
             </Link>

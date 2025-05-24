@@ -3,6 +3,7 @@
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function GranturiGreen() {
   const { t } = useTranslation();
@@ -21,9 +22,27 @@ export default function GranturiGreen() {
         <h1 className="text-4xl font-bold text-blue-900 text-center mb-6">
           Granturi Green
         </h1>
-        <p className="max-w-3xl mx-auto text-center text-lg text-gray-700">
+        <p className="max-w-3xl mx-auto text-center text-lg text-gray-700 text-justify">
           Pagina dedicată programelor active de finanțare nerambursabilă și scheme de ajutor de stat pentru investiții sustenabile.
         </p>
+        <div className="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg flex flex-col sm:flex-row items-center gap-6">
+          <div className="flex-1">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+              Fondul pentru Modernizare - Autoconsum
+            </h2>
+            <p className="text-gray-700 mb-4 text-justify">
+              A fost lansat al doilea apel dedicat sprijinirii dezvoltării capacităților noi de generare a energiei electrice din surse regenerabile, destinate autoconsumului.
+            </p>
+          </div>
+          <div>
+            <Link
+              href="/fondul-modernizare-autoconsum"
+              className="inline-block font-semibold px-6 py-3 rounded-full border border-green-700 bg-gradient-to-r from-[#188282] to-[#6eba4d] text-white shadow-lg transition-colors duration-300 ease-in-out hover:from-[#166f6e] hover:to-[#5a9d38]"
+            >
+              Vezi detalii
+            </Link>
+          </div>
+        </div>
         {/* Urmează să completăm cu conținut structurat */}
       </div>
     </>

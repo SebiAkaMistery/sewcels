@@ -1,3 +1,4 @@
+import ContactModal from '../components/ContactModal';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -17,6 +18,7 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ChartD
 export default function Services() {
   const { locale } = useRouter();
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isContactOpen, setContactOpen] = useState(false);
   const [monthlyData, setMonthlyData] = useState(new Array(12).fill(0));
 
   useEffect(() => {
@@ -586,155 +588,15 @@ export default function Services() {
         </div>
         <div className="absolute bottom-6 w-full flex justify-center">
           <button
-            onClick={() => setModalOpen(true)}
+            onClick={() => setContactOpen(true)}
             className="inline-block font-semibold px-6 py-3 rounded-full border border-green-700 transition-colors duration-300 bg-white text-green-700 group hover:bg-[linear-gradient(90deg,_rgba(24,130,128,0.9)_0%,_rgba(24,130,128,0.9)_40%,_rgba(110,186,77,0.6)_100%)] hover:text-white"
           >
             {locale === 'ro' ? 'Contactează-ne' : 'Contact Us'}
           </button>
+          <ContactModal isOpen={isContactOpen} onClose={() => setContactOpen(false)} />
         </div>
       </div>
-
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full relative">
-            <button
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
-              onClick={() => setModalOpen(false)}
-            >
-              ✕
-            </button>
-            <h3 className="text-xl font-bold mb-4 text-blue-900">
-              {locale === 'ro' ? 'Formular de Contact' : 'Contact Form'}
-            </h3>
-            <form
-              className="flex flex-col gap-4"
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const data = Object.fromEntries(formData.entries());
-
-                try {
-                  const interestLabels = {
-                    efficiency: 'Consultanță pentru Eficiență Energetică',
-                    pv: 'Proiecte fotovoltaice',
-                    bess: 'Sisteme de stocare (BESS) și integrare hibridă',
-                    atr: 'Consultanță pentru obținere ATR',
-                    anre: 'Avize și licențiere ANRE',
-                    ppa: 'Proiecte PPA (Power Purchase Agreements)',
-                    funding: 'Fonduri Nerambursabile & Ajutoare de Stat',
-                    procurement: 'Consultanță pentru Achiziții Publice & Licitații',
-                    investors: 'Investitori & Intermediere Bancară',
-                  };
-                  data.interest = interestLabels[data.interest] || data.interest;
-
-                  const response = await fetch('/api/contact', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                  });
-
-                  if (response.ok) {
-                    alert(locale === 'ro' ? 'Mesaj trimis cu succes!' : 'Message sent successfully!');
-                    e.target.reset();
-                    setModalOpen(false);
-                  } else {
-                    alert(locale === 'ro' ? 'A apărut o eroare. Încearcă din nou.' : 'An error occurred. Please try again.');
-                  }
-                } catch (error) {
-                  console.error(error);
-                  alert(locale === 'ro' ? 'A apărut o eroare.' : 'Something went wrong.');
-                }
-              }}
-            >
-              <input
-                type="text"
-                name="name"
-                placeholder={locale === 'ro' ? 'Nume complet' : 'Full name'}
-                className="border border-gray-300 px-4 py-2 rounded"
-                required
-              />
-              <input
-                type="text"
-                name="company"
-                placeholder={locale === 'ro' ? 'Compania' : 'Company'}
-                className="border border-gray-300 px-4 py-2 rounded"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                className="border border-gray-300 px-4 py-2 rounded"
-                required
-              />
-              <input
-                type="tel"
-                name="phone"
-                placeholder={locale === 'ro' ? 'Număr de telefon' : 'Phone number'}
-                className="border border-gray-300 px-4 py-2 rounded"
-                required
-              />
-
-              <select
-                name="interest"
-                className="border border-gray-300 px-4 py-2 rounded bg-white text-gray-700"
-                required
-              >
-                <option value="">{locale === 'ro' ? 'Selectează obiectul interesului' : 'Select area of interest'}</option>
-                <option value="efficiency">{locale === 'ro' ? 'Consultanță pentru Eficiență Energetică' : 'Energy Efficiency Consulting'}</option>
-                <option value="pv">{locale === 'ro' ? 'Proiecte fotovoltaice' : 'Photovoltaic Projects'}</option>
-                <option value="bess">{locale === 'ro' ? 'Sisteme de stocare (BESS) și integrare hibridă' : 'BESS & Hybrid Integration'}</option>
-                <option value="atr">{locale === 'ro' ? 'Consultanță pentru obținere ATR' : 'Grid Access Permit (ATR) Consulting'}</option>
-                <option value="anre">{locale === 'ro' ? 'Avize și licențiere ANRE' : 'ANRE Licensing & Approvals'}</option>
-                <option value="ppa">{locale === 'ro' ? 'Proiecte PPA (Power Purchase Agreements)' : 'PPA (Power Purchase Agreements) Projects'}</option>
-                <option value="funding">{locale === 'ro' ? 'Fonduri Nerambursabile & Ajutoare de Stat' : 'Grants & State Aid'}</option>
-                <option value="procurement">{locale === 'ro' ? 'Consultanță pentru Achiziții Publice & Licitații' : 'Public Procurement & Tender Consulting'}</option>
-                <option value="investors">{locale === 'ro' ? 'Investitori & Intermediere Bancară' : 'Investors & Banking Intermediation'}</option>
-              </select>
-
-              <textarea
-                name="message"
-                rows="4"
-                placeholder={locale === 'ro' ? 'Mesajul tău...' : 'Your message...'}
-                className="border border-gray-300 px-4 py-2 rounded"
-                required
-              />
-              <label className="text-[15px] text-gray-700 flex items-start gap-2">
-                <input type="checkbox" required className="mt-1" name="privacy" />
-                <span>
-                  {locale === 'ro'
-                    ? <>Sunteți de acord cu
-                        <a
-                          href="/politica-confidentialitate"
-                          className="underline text-blue-700 hover:text-blue-900 ml-1"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          politica noastră de confidențialitate
-                        </a>.
-                      </>
-                    : <>You agree with our
-                        <a
-                          href="/politica-confidentialitate"
-                          className="underline text-blue-700 hover:text-blue-900 ml-1"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          privacy policy
-                        </a>.
-                      </>
-                  }
-                </span>
-              </label>
-              <button type="submit" className="bg-blue-900 text-white font-semibold px-4 py-2 rounded hover:bg-blue-800">
-                {locale === 'ro' ? 'Trimite' : 'Send'}
-              </button>
-            </form>
-          </div>
-        </div>
-      )} {/* modal conditional ends here */}
+      {/* ContactModal is now handled above, modal JSX removed */}
     </div>
   );
 } // End of Services component

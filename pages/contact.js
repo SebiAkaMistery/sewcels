@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import ContactModal from '../components/ContactModal';
 
 export default function Contact() {
   const { t } = useTranslation('common');
@@ -113,118 +114,7 @@ export default function Contact() {
             </div>
           </div>
           <div className="w-1/2 p-10 rounded-r-xl shadow-lg bg-white text-[rgb(34,38,37)] font-[DM Sans] text-[16px] leading-[27.2px] transition-all duration-300 ease overflow-hidden">
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-6"
-            >
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {locale === 'ro' ? 'Nume complet' : 'Full name'}
-                </label>
-                <input
-                  className="w-full border border-gray-300 px-4 py-3 rounded focus:ring-2 focus:ring-blue-500 hover:border-green-500 hover:ring-1 hover:ring-green-400 transition"
-                  type="text"
-                  name="name"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {locale === 'ro' ? 'Companie' : 'Company'}
-                </label>
-                <input
-                  className="w-full border border-gray-300 px-4 py-3 rounded focus:ring-2 focus:ring-blue-500 hover:border-green-500 hover:ring-1 hover:ring-green-400 transition"
-                  type="text"
-                  name="company"
-                  required
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                <input
-                  className="w-full border border-gray-300 px-4 py-3 rounded focus:ring-2 focus:ring-blue-500 hover:border-green-500 hover:ring-1 hover:ring-green-400 transition"
-                  type="email"
-                  name="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {locale === 'ro' ? 'Telefon' : 'Phone number'}
-                </label>
-                <input
-                  className="w-full border border-gray-300 px-4 py-3 rounded focus:ring-2 focus:ring-blue-500 hover:border-green-500 hover:ring-1 hover:ring-green-400 transition"
-                  type="tel"
-                  name="phone"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {locale === 'ro' ? 'Obiect de interes' : 'Area of interest'}
-                </label>
-                <select
-                  className="w-full border border-gray-300 px-4 py-3 rounded focus:ring-2 focus:ring-blue-500 hover:border-green-500 hover:ring-1 hover:ring-green-400 transition"
-                  name="interest"
-                  required
-                  value={interest}
-                  onChange={(e) => setInterest(e.target.value)}
-                >
-                  <option value="">{locale === 'ro' ? 'Selectează' : 'Select'}</option>
-                  <option value="energie">Consultanță pentru Eficiență Energetică : Proiecte fotovoltaice</option>
-                  <option value="bess">Sisteme de stocare (BESS) și integrare hibridă</option>
-                  <option value="atr">Consultanță pentru obținere ATR</option>
-                  <option value="anre">Avize și licențiere ANRE</option>
-                  <option value="ppa">Proiecte PPA (Power Purchase Agreements)</option>
-                  <option value="fonduri">Fonduri Nerambursabile & Ajutoare de Stat</option>
-                  <option value="achizitii">Consultanță pentru Achiziții Publice & Licitații</option>
-                  <option value="investitori">Investitori & Intermediere Bancară</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {locale === 'ro' ? 'Mesaj' : 'Message'}
-                </label>
-                <textarea
-                  className="w-full border border-gray-300 px-4 py-3 rounded focus:ring-2 focus:ring-blue-500 hover:border-green-500 hover:ring-1 hover:ring-green-400 transition"
-                  name="message"
-                  rows="5"
-                  required
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                ></textarea>
-              </div>
-              <div className="flex items-start space-x-3">
-                <input
-                  type="checkbox"
-                  name="privacy"
-                  required
-                  className="mt-1"
-                  checked={privacy}
-                  onChange={(e) => setPrivacy(e.target.checked)}
-                />
-                <label className="text-sm text-gray-700">
-                  {locale === 'ro' ? 'Sunteți de acord cu ' : 'You agree to our '}
-                  <a
-                    href="/politica-confidentialitate"
-                    className="text-blue-600 underline hover:text-blue-800"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {locale === 'ro' ? 'politica noastră de confidențialitate' : 'privacy policy'}
-                  </a>.
-                </label>
-              </div>
-              <button className="w-full bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition" type="submit">
-                {locale === 'ro' ? 'Trimite' : 'Send'}
-              </button>
-            </form>
+            <ContactModal static={true} />
           </div>
           </div>
         </div>
