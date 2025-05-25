@@ -2,7 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/electric-up2": "pages/electric-up2.js",
-  "/granturi-green": "pages/granturi-green.js"
+  "/services": "pages/services.js",
+  "/fondul-modernizare-autoconsum": "pages/fondul-modernizare-autoconsum.js"
 }
