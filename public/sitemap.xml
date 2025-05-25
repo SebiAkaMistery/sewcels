@@ -1,39 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-  <loc>https://sewcels.ro/ro/about</loc>
-</url>
-<url>
-  <loc>https://sewcels.ro/en/about</loc>
-</url>
-<url>
-  <loc>https://sewcels.ro/ro/contact</loc>
-</url>
-<url>
-  <loc>https://sewcels.ro/en/contact</loc>
-</url>
-<url>
-  <loc>https://sewcels.ro/ro/granturi-green</loc>
-</url>
-<url>
-  <loc>https://sewcels.ro/en/granturi-green</loc>
-</url>
-<url>
-  <loc>https://sewcels.ro/ro</loc>
-</url>
-<url>
-  <loc>https://sewcels.ro/en</loc>
-</url>
-<url>
-  <loc>https://sewcels.ro/ro/politica-confidentialitate</loc>
-</url>
-<url>
-  <loc>https://sewcels.ro/en/politica-confidentialitate</loc>
-</url>
-<url>
-  <loc>https://sewcels.ro/ro/services</loc>
-</url>
-<url>
-  <loc>https://sewcels.ro/en/services</loc>
-</url>
+  <url>
+    <loc>https://sewcels.ro/ro/about</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/en/about</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/ro/contact</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/en/contact</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/ro/granturi-green</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/en/granturi-green</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/ro</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/en</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/ro/politica-confidentialitate</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/en/politica-confidentialitate</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/ro/services</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/en/services</loc>
+  </url>
+  <!-- ADĂUGĂRILE PENTRU FONDUL MODERNIZARE AUTOCONSUM -->
+  <url>
+    <loc>https://sewcels.ro/ro/fondul-modernizare-autoconsum</loc>
+  </url>
+  <url>
+    <loc>https://sewcels.ro/en/fondul-modernizare-autoconsum</loc>
+  </url>
 </urlset>
