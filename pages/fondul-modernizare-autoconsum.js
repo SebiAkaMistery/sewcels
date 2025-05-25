@@ -222,15 +222,15 @@ export default function FondulModernizareAutoconsum() {
       <Head>
         <title>
           {locale === 'ro'
-            ? 'Fondul pentru Modernizare - Surse regenerabile și stocare pentru autoconsum'
-            : 'Modernization Fund - Renewable Energy and Storage for Self-Consumption'}
+            ? 'Fondul pentru Modernizare Autoconsum | Calculatoare și Informații Oficiale 2025'
+            : 'Modernization Fund Self-Consumption | Official Calculators and Info 2025'}
         </title>
         <meta
           name="description"
           content={
             locale === 'ro'
-              ? 'Sprijin pentru investiții în capacități noi de producere a energiei regenerabile și stocare pentru autoconsum, prin Fondul pentru Modernizare.'
-              : 'Support for investments in new renewable energy and storage capacities for self-consumption through the Modernization Fund.'
+              ? 'Află cum să accesezi Fondul pentru Modernizare pentru proiecte de autoconsum. Utilizează calculatoare interactive pentru estimări, vezi condițiile de eligibilitate și bugetul disponibil. Toate informațiile oficiale 2025, actualizate pentru afacerea ta.'
+              : 'Learn how to access the Modernization Fund for self-consumption projects. Use interactive calculators for estimates, view eligibility criteria and available budget. All official 2025 info updated for your business.'
           }
         />
         <script
