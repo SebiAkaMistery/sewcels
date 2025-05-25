@@ -1071,7 +1071,7 @@ export default function FondulModernizareAutoconsum() {
           <div className="relative z-10 pt-3 px-4 text-center">
             <h2 className="text-base md:text-lg font-medium mb-1 max-w-3xl mx-auto text-green-200">
               {locale === 'ro'
-                ? '„Transformă-ți consumul de energie și economisește cu sprijinul nostru. Contactează-ne pentru mai multe informatii despre cum poti accesa fondurile prin programul Fondului pentru Modernizare.”'
+                ? 'Transformă-ți consumul de energie și economisește cu sprijinul nostru. Contactează-ne pentru mai multe informații despre cum poți accesa fondurile prin programul Fondului pentru Modernizare.'
                 : 'Transform your energy consumption and save with our support. Contact us for more information about how to access funds through the Modernization Fund program.'}
             </h2>
           </div>
