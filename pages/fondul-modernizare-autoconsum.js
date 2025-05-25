@@ -971,6 +971,10 @@ export default function FondulModernizareAutoconsum() {
                         [&::-moz-range-thumb]:shadow
                         [&::-moz-range-thumb]:cursor-pointer"
                     />
+                    <p className="text-sm italic text-gray-600 mt-1 max-w-l mx-auto">
+                      Maxim 450.000 Euro/MW – pentru capacitățile instalate de până la 5 MW<br />
+                      Maxim 360.000 Euro/MW – pentru capacitățile instalate de peste 5 MW
+                    </p>
                   </div>
                 <div className="overflow-x-auto">
                   <table className="w-full border-collapse border border-gray-300 rounded-lg">
