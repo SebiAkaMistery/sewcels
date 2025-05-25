@@ -233,6 +233,71 @@ export default function FondulModernizareAutoconsum() {
               : 'Support for investments in new renewable energy and storage capacities for self-consumption through the Modernization Fund.'
           }
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Fondul pentru Modernizare - Surse regenerabile și stocare pentru autoconsum",
+            "url": "https://www.sewcels.ro/fondul-modernizare-autoconsum",
+            "description": "Sprijin pentru investiții în capacități noi de producere a energiei regenerabile și stocare pentru autoconsum, prin Fondul pentru Modernizare.",
+            "inLanguage": "ro",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Acasă",
+                  "item": "https://www.sewcels.ro"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Fondul pentru Modernizare - Autoconsum",
+                  "item": "https://www.sewcels.ro/fondul-modernizare-autoconsum"
+                }
+              ]
+            },
+            "mainEntity": {
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "Ce este Fondul pentru Modernizare?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Fondul pentru Modernizare este un program care sprijină investițiile în capacități noi de producere a energiei din surse regenerabile și stocare pentru autoconsum."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Care este perioada de depunere a proiectelor?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Perioada de depunere a proiectelor este 22 mai 2025 – 22 august 2025."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Ce tipuri de investiții sunt eligibile?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Investițiile în capacități noi de producere a energiei din surse regenerabile precum sisteme fotovoltaice, eoliene și hidro, destinate autoconsumului, cu minimum 70% din energia produsă consumată la locul de producție."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Care este intensitatea finanțării?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Intensitatea finanțării este 100% din cheltuielile eligibile, cu limite maxime pe MW instalat conform capacității."
+                  }
+                }
+              ]
+            }
+          })}}
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
           rel="stylesheet"
