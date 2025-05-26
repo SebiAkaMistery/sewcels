@@ -27,6 +27,11 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
+    "/electric-up2": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/electric-up2.js"
+    ],
     "/fondul-modernizare-autoconsum": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

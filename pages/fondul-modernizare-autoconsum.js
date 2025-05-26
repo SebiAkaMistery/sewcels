@@ -21,13 +21,151 @@ export default function FondulModernizareAutoconsum() {
   const { locale } = useRouter();
   const [isContactOpen, setIsContactOpen] = useState(false);
 
+  // --- State for pvSystem ---
+  const [pvSystem, setPvSystem] = useState(100);
+
+  // --- Storage Capacity State and Handlers ---
+function customStorageRoundup(value) {
+    if (value <= 30) return 30;
+    if (value <= 60) return 60;
+    if (value <= 90) return 90;
+    if (value <= 120) return 120;
+    if (value <= 150) return 150;
+    if (value <= 180) return 180;
+    if (value <= 210) return 210;
+    if (value <= 240) return 240;
+    if (value <= 270) return 270;
+    if (value <= 300) return 300;
+    return Math.ceil(value / 100) * 100;
+}
+  // Memoized recommended storage capacity based on pvSystem
+  const recommendedStorageCapacity = useMemo(() => {
+    return customStorageRoundup((pvSystem ?? 0) / 60 * 12);
+  }, [pvSystem]);
+  const [storageCapacity, setStorageCapacity] = useState(customStorageRoundup((pvSystem ?? 0) / 60 * 12));
+  const [storageCapacityInput, setStorageCapacityInput] = useState(storageCapacity.toString());
+
+  useEffect(() => {
+    setStorageCapacity(recommendedStorageCapacity);
+    setStorageCapacityInput(recommendedStorageCapacity.toLocaleString());
+  }, [recommendedStorageCapacity]);
+
+  
+  const onStorageCapacityInputChange = (e) => {
+    const val = e.target.value;
+    const numericVal = val.replace(/\D/g, '');
+    setStorageCapacityInput(val);
+    if (numericVal === '') {
+      setStorageCapacity(undefined);
+    } else {
+      let num = Number(numericVal);
+      if (num < 30) num = 30;
+      if (num > 5000) num = 5000;
+      num = customStorageRoundup(num);
+      setStorageCapacity(num);
+    }
+  };
+
+  const onStorageCapacityInputBlur = () => {
+    let num = Number(storageCapacityInput.replace(/\D/g, ''));
+    if (isNaN(num) || num < 30) num = 30;
+    if (num > 5000) num = 5000;
+    num = customStorageRoundup(num);
+    setStorageCapacity(num);
+    setStorageCapacityInput(num.toLocaleString());
+  };
+
+  const onStorageCapacityInputKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      let num = Number(storageCapacityInput.replace(/\D/g, ''));
+      if (isNaN(num) || num < 30) num = 30;
+      if (num > 5000) num = 5000;
+      num = customStorageRoundup(num);
+      setStorageCapacity(num);
+      setStorageCapacityInput(num.toLocaleString());
+    }
+  };
+
+  const onStorageCapacitySliderChange = (e) => {
+    let val = Number(e.target.value);
+    val = customStorageRoundup(val);
+    setStorageCapacity(val);
+    setStorageCapacityInput(val.toLocaleString());
+  };
+
   // --- State and recalculate logic for dynamic calculator ---
   const [monthlyData, setMonthlyData] = useState([]);
   const [monthlyConsumption, setMonthlyConsumption] = useState(10000);
+  // --- Monthly Consumption Input State and Handlers (for improved input/slider sync) ---
+  const [monthlyConsumptionInput, setMonthlyConsumptionInput] = useState('10000');
+
+  // Format number with thousands separators (but keep decimals if needed)
+  function formatNumberInput(val) {
+    if (val === undefined || val === null) return '';
+    // Remove all non-digits
+    const numericVal = val.replace(/\D/g, '');
+    if (!numericVal) return '';
+    // Format with thousands separators
+    return Number(numericVal).toLocaleString();
+  }
+
+  // Remove all non-digit chars
+  function parseNumberInput(val) {
+    return val.replace(/\D/g, '');
+  }
+
+  const onMonthlyConsumptionInputChange = (e) => {
+    const val = e.target.value;
+    const numericVal = parseNumberInput(val);
+    // The displayed value: formatted with thousands separators
+    setMonthlyConsumptionInput(val);
+    if (numericVal === '') {
+      setMonthlyConsumption(undefined);
+    } else {
+      let num = Number(numericVal);
+      if (num > 1000000) num = 1000000;
+      if (num < 10000) num = 10000;
+      setMonthlyConsumption(num);
+    }
+  };
+
+  const onMonthlyConsumptionInputBlur = () => {
+    let num = Number(parseNumberInput(monthlyConsumptionInput));
+    if (isNaN(num) || num < 10000) num = 10000;
+    if (num > 1000000) num = 1000000;
+    setMonthlyConsumption(num);
+    setMonthlyConsumptionInput(num.toLocaleString());
+  };
+
+  const onMonthlyConsumptionInputKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      let num = Number(parseNumberInput(monthlyConsumptionInput));
+      if (isNaN(num) || num < 10000) num = 10000;
+      if (num > 1000000) num = 1000000;
+      setMonthlyConsumption(num);
+      setMonthlyConsumptionInput(num.toLocaleString());
+    }
+  };
+
+  const onMonthlyConsumptionSliderChange = (e) => {
+    let val = Number(e.target.value);
+    if (val < 10000) val = 10000;
+    if (val > 1000000) val = 1000000;
+    setMonthlyConsumption(val);
+    setMonthlyConsumptionInput(val.toString());
+  };
+
+  // Sync input when monthlyConsumption changes (from slider or programmatically)
+  useEffect(() => {
+    if (monthlyConsumption !== undefined) {
+      setMonthlyConsumptionInput(monthlyConsumption.toLocaleString());
+    }
+  }, [monthlyConsumption]);
   const [selfConsumptionPercent, setSelfConsumptionPercent] = useState(75);
   const [buyPrice, setBuyPrice] = useState(1);
   const [sellPrice, setSellPrice] = useState(0.5);
-  const [pvSystem, setPvSystem] = useState(100);
   const [recommendedPvSystem, setRecommendedPvSystem] = useState(100);
 
   // --- State for results ---
@@ -53,29 +191,20 @@ export default function FondulModernizareAutoconsum() {
     return stateAidPerMW * 5 * (pvSystem / 1000);
   }, [stateAidPerMW, pvSystem]);
 
-  // Helper: custom storage roundup
-  function customStorageRoundup(value) {
-    if (value <= 30) return 30;
-    if (value <= 60) return 60;
-    if (value <= 90) return 90;
-    if (value <= 120) return 120;
-    if (value <= 150) return 150;
-    if (value <= 180) return 180;
-    if (value <= 210) return 210;
-    if (value <= 240) return 240;
-    if (value <= 270) return 270;
-    if (value <= 300) return 300;
-    return Math.ceil(value / 100) * 100;
-  }
   const roundup = (num, step) => Math.ceil(num / step) * step;
 
-  // Snapping for PV values
+  // Snapping for PV values (step logic: 10 steps below 1000, 50 between 1000-2000, 100 above 2000)
   const snapPvValue = (val) => {
-    if (val === 1000) return 1000; // Permite fix 1000
-    if (val <= 500) return roundup(val, 10);
-    if (val <= 1000) return roundup(val, 25);
-    if (val <= 3000) return roundup(val, 50);
-    return roundup(val, 100);
+    if (val < 1000) {
+      // Round to nearest 10
+      return Math.round(val / 10) * 10;
+    } else if (val >= 1000 && val <= 2000) {
+      // Round to nearest 50
+      return Math.round(val / 50) * 50;
+    } else {
+      // Above 2000, round to nearest 100
+      return Math.round(val / 100) * 100;
+    }
   };
 
   const [pvSystemInput, setPvSystemInput] = useState('100');
@@ -83,58 +212,71 @@ export default function FondulModernizareAutoconsum() {
   // Handler pentru input manual numeric
   const onPvInputChange = (e) => {
     const val = e.target.value;
-    const numericVal = val.replace(/\D/g, '');
-    setPvSystemInput(val); // afișăm ce tastează utilizatorul
+    const numericVal = parseNumberInput(val);
+    setPvSystemInput(val);
     if (numericVal === '') {
       setPvSystem(undefined);
     } else {
       let num = Number(numericVal);
       if (num > 15000) num = 15000;
+      if (num < 100) num = 100;
+      num = snapPvValue(num);
       setPvSystem(num);
+      setPvSystemInput(num.toLocaleString());
     }
   };
 
   // Blur: validează și corectează inputul dacă e invalid
   const onPvInputBlur = () => {
-    let num = Number(pvSystemInput.replace(/\D/g, ''));
+    let num = Number(parseNumberInput(pvSystemInput));
     if (isNaN(num) || num < 100) num = 100;
     if (num > 15000) num = 15000;
+    num = snapPvValue(num);
     setPvSystem(num);
-    setPvSystemInput(num.toString());
+    setPvSystemInput(num.toLocaleString());
   };
 
   // KeyDown: permite tastare normală, Enter confirmă
   const onPvInputKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      let num = Number(pvSystemInput.replace(/\D/g, ''));
+      let num = Number(parseNumberInput(pvSystemInput));
       if (isNaN(num) || num < 100) num = 100;
       if (num > 15000) num = 15000;
+      num = snapPvValue(num);
       setPvSystem(num);
-      setPvSystemInput(num.toString());
+      setPvSystemInput(num.toLocaleString());
     }
     // Permite orice tastă, nu blocăm tastele pentru editare
   };
 
   // Handler pentru slider
   const onPvSliderChange = (e) => {
-    const val = Number(e.target.value);
+    let val = Number(e.target.value);
+    val = snapPvValue(val);
     setPvSystem(val);
-    setPvSystemInput(val.toString());
+    setPvSystemInput(val.toLocaleString());
   };
 
   // Sync input când pvSystem se schimbă din alte cauze
   useEffect(() => {
     if (pvSystem !== undefined) {
-      setPvSystemInput(pvSystem.toString());
+      setPvSystemInput(pvSystem.toLocaleString());
     }
   }, [pvSystem]);
 
   // Calculation function
-  const recalculate = (currentMonthlyConsumption, currentSelfConsumptionPercent, currentBuyPrice, currentSellPrice, currentPvSystem) => {
+  const recalculate = (
+    currentMonthlyConsumption,
+    currentSelfConsumptionPercent,
+    currentBuyPrice,
+    currentSellPrice,
+    currentPvSystem,
+    currentStorageCapacity
+  ) => {
     const monthlyValue = currentMonthlyConsumption;
     const selfValue = currentSelfConsumptionPercent / 100;
-    
+
     // Recommended PV system based on consumption and self-consumption percentage
     const pvValueRaw = Math.min(Math.round(monthlyValue * 12 / (selfValue * 1100)), 15000);
     const recommendedPv = snapPvValue(pvValueRaw);
@@ -160,17 +302,11 @@ export default function FondulModernizareAutoconsum() {
       pvCostEur = 1000 * 550 + (pv - 1000) * 500;
     }
 
-    const storageCapacity = customStorageRoundup(pv / 60 * 12); // pvSystem is currentPvSystem
     const storageCostPerKwh = 250;
-    const individualStorageCostEur = storageCapacity * storageCostPerKwh;
+    const storageCap = currentStorageCapacity ?? customStorageRoundup((currentPvSystem ?? 0) / 60 * 12);
+    const individualStorageCostEur = storageCap * storageCostPerKwh;
     const totalStorageCostEur = pvCostEur + individualStorageCostEur;
     const totalStorageCostRon = totalStorageCostEur * 5;
-
-    // Payback in RON (amortizare pe baza valorilor în RON)
-    // Folosim valorile deja definite în state pentru costuri și venituri în RON
-    // (vor fi setate mai jos înainte de acest calcul)
-    // Calculăm payback pentru PV și pentru PV+Stocare
-    // (cost PV în RON / venit anual PV), (cost total în RON / venit anual cu stocare)
 
     // Setăm state-urile pentru costuri și venituri înainte de calculul amortizării
     setPvCostEurState(pvCostEur);
@@ -207,8 +343,8 @@ export default function FondulModernizareAutoconsum() {
 
   // Recalculate when pvSystem (slider) or other financial params change
   useEffect(() => {
-    recalculate(monthlyConsumption, selfConsumptionPercent, buyPrice, sellPrice, pvSystem);
-  }, [monthlyConsumption, selfConsumptionPercent, buyPrice, sellPrice, pvSystem]);
+    recalculate(monthlyConsumption, selfConsumptionPercent, buyPrice, sellPrice, pvSystem, storageCapacity);
+  }, [monthlyConsumption, selfConsumptionPercent, buyPrice, sellPrice, pvSystem, storageCapacity]);
 
 
   const openContactModal = () => setIsContactOpen(true);
@@ -491,27 +627,37 @@ export default function FondulModernizareAutoconsum() {
               <div>
                 <div className="block text-sm font-medium text-gray-700 mb-1 flex justify-between items-center">
                   <span>{locale === 'ro' ? 'Consum lunar (kWh)' : 'Monthly consumption (kWh)'}</span>
-                  <span className="inline-block bg-white border border-gray-300 rounded px-2 py-0.5 text-sm font-semibold text-gray-800">
-                    {monthlyConsumption.toLocaleString()} kWh
-                  </span>
+                  <input
+                    type="text"
+                    value={formatNumberInput(monthlyConsumptionInput)}
+                    onChange={e => {
+                      // Remove non-digits, preserve caret position
+                      const raw = parseNumberInput(e.target.value);
+                      setMonthlyConsumptionInput(e.target.value);
+                      if (raw === '') {
+                        setMonthlyConsumption(undefined);
+                      } else {
+                        let num = Number(raw);
+                        if (num > 1000000) num = 1000000;
+                        if (num < 10000) num = 10000;
+                        setMonthlyConsumption(num);
+                      }
+                    }}
+                    onBlur={onMonthlyConsumptionInputBlur}
+                    onKeyDown={onMonthlyConsumptionInputKeyDown}
+                    placeholder="Introdu valoarea aici..."
+                    className="w-40 border border-gray-400 rounded px-3 py-2 text-sm text-gray-900 text-right font-mono bg-gray-50 focus:bg-white focus:border-green-700 transition-colors duration-200"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                  />
                 </div>
                 <input
                   type="range"
-                  name="monthly"
-                  min="10000"
-                  max="1000000"
-                  step="1000" // Consider dynamic step for larger values if needed
-                  value={monthlyConsumption}
-                  onChange={e => {
-                    let value = Number(e.target.value);
-                    // Optional: more granular stepping for larger values if 1000 is too coarse
-                    if (value > 100000 && value <= 500000) {
-                      value = Math.round(value / 5000) * 5000;
-                    } else if (value > 500000) {
-                        value = Math.round(value / 10000) * 10000;
-                    }
-                    setMonthlyConsumption(value);
-                  }}
+                  min={10000}
+                  max={1000000}
+                  step={1000}
+                  value={monthlyConsumption ?? 10000}
+                  onChange={onMonthlyConsumptionSliderChange}
                   className="w-full h-2 bg-gray-300 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:bg-green-700 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:bg-green-700 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border [&::-moz-range-thumb]:border-white [&::-moz-range-thumb]:shadow [&::-moz-range-thumb]:cursor-pointer"
                 />
               </div>
@@ -577,8 +723,18 @@ export default function FondulModernizareAutoconsum() {
                     <span>{locale === 'ro' ? 'Sistem Fotovoltaic (kWp)' : 'Photovoltaic System (kWp)'}</span>
                     <input
                       type="text"
-                      value={pvSystemInput}
-                      onChange={onPvInputChange}
+                      value={formatNumberInput(pvSystemInput)}
+                      onChange={e => {
+                        const raw = parseNumberInput(e.target.value);
+                        setPvSystemInput(e.target.value);
+                        if (raw === '') {
+                          setPvSystem(undefined);
+                        } else {
+                          let num = Number(raw);
+                          if (num > 15000) num = 15000;
+                          setPvSystem(num);
+                        }
+                      }}
                       onBlur={onPvInputBlur}
                       onKeyDown={onPvInputKeyDown}
                       placeholder="Introdu valoarea aici..."
@@ -606,11 +762,51 @@ export default function FondulModernizareAutoconsum() {
                   )}
                 </div>
               </div>
-              <div className="block text-sm font-medium text-gray-700 mb-1 flex justify-between items-center md:col-span-1"> {/* Span across one column or adjust as needed */}
-                <span>{locale === 'ro' ? 'Capacitate de stocare minim recomandată' : 'Minimum Recommended Storage Capacity'}</span>
-                <span className="inline-block bg-white border border-gray-300 rounded px-2 py-0.5 text-sm font-semibold text-gray-800">
-                  {customStorageRoundup((pvSystem ?? 0) / 60 * 12).toLocaleString()} kWh
-                </span>
+              <div>
+                <div>
+                  <div className="block text-sm font-medium text-gray-700 mb-1 flex justify-between items-center">
+                    <span>{locale === 'ro' ? 'Capacitate de stocare (kWh)' : 'Storage Capacity (kWh)'}</span>
+                    <input
+                      type="text"
+                      value={formatNumberInput(storageCapacityInput)}
+                      onChange={e => {
+                        const raw = parseNumberInput(e.target.value);
+                        setStorageCapacityInput(e.target.value);
+                        if (raw === '') {
+                          setStorageCapacity(undefined);
+                        } else {
+                          let num = Number(raw);
+                          if (num < 30) num = 30;
+                          if (num > 5000) num = 5000;
+                          setStorageCapacity(num);
+                        }
+                      }}
+                      onBlur={onStorageCapacityInputBlur}
+                      onKeyDown={onStorageCapacityInputKeyDown}
+                      placeholder="Introdu valoarea aici..."
+                      className="w-40 border border-gray-400 rounded px-3 py-2 text-sm text-gray-900 text-right font-mono bg-gray-50 focus:bg-white focus:border-green-700 transition-colors duration-200"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                    />
+                  </div>
+                  <input
+                    type="range"
+                    min={30}
+                    max={5000}
+                    step={1}
+                    value={storageCapacity ?? 30}
+                    onChange={onStorageCapacitySliderChange}
+                    className="w-full h-2 bg-gray-300 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:bg-green-700 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:bg-green-700 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border [&::-moz-range-thumb]:border-white [&::-moz-range-thumb]:shadow [&::-moz-range-thumb]:cursor-pointer"
+                  />
+                  {storageCapacity !== recommendedStorageCapacity && (
+                    <div className="border border-dotted border-green-700 rounded-md p-3 mt-3 text-green-800 bg-green-50 text-center">
+                      {locale === 'ro'
+                        ? <>Recomandat pentru sistemul fotovoltaic configurat: <span className="font-semibold">{recommendedStorageCapacity.toLocaleString()}</span> kWh</>
+                        : <>Recommended for configured photovoltaic system: <span className="font-semibold">{recommendedStorageCapacity.toLocaleString()}</span> kWh</>
+                      }
+                    </div>
+                  )}
+                </div>
               </div>
             </form>
             <div className="space-y-4">
@@ -703,99 +899,26 @@ export default function FondulModernizareAutoconsum() {
                         }}
                       />
                     </div>
-                    <div className="max-w-4xl mx-auto mt-4">
-                      <table className="w-full border-collapse">
-                        <tbody>
-                          <tr className="border-b border-gray-300">
-                            <td className="text-left py-2 pl-8">
-                              <div className="flex items-center min-h-[2.5rem]">
-                                {locale === 'ro' ? 'Producție autoconsumată estimată' : 'Estimated Self-Consumed Production'}
-                              </div>
-                            </td>
-                            <td className="text-right py-2 w-36 font-semibold pl-8">
-                              <div className="flex items-center justify-end min-h-[2.5rem]">
-                                {selfConsumedState.toLocaleString()} kWh
-                              </div>
-                            </td>
-                            <td className="text-left py-2 pl-8">
-                              <div className="flex items-center min-h-[2.5rem]">
-                                {locale === 'ro' ? 'Surplus energetic estimat' : 'Estimated Energy Surplus'}
-                              </div>
-                            </td>
-                            <td className="text-right py-2 w-36 font-semibold pl-8">
-                              <div className="flex items-center justify-end min-h-[2.5rem]">
-                                {surplusEnergyState.toLocaleString()} kWh
-                              </div>
-                            </td>
-                          </tr>
-                          <tr className="border-b border-gray-300">
-                            <td className="text-left py-2 pl-8">
-                              <div className="flex items-center min-h-[2.5rem]">
-                                {locale === 'ro' ? 'Economie din autoconsum' : 'Savings from Self-Consumption'}
-                              </div>
-                            </td>
-                            <td className="text-right py-2 w-36 font-semibold pl-8">
-                              <div className="flex items-center justify-end min-h-[2.5rem]">
-                                {selfSavingState.toLocaleString()} RON
-                              </div>
-                            </td>
-                            <td className="text-left py-2 pl-8">
-                              <div className="flex items-center min-h-[2.5rem]">
-                                {locale === 'ro' ? 'Venit din energia injectată' : 'Revenue from Injected Energy'}
-                              </div>
-                            </td>
-                            <td className="text-right py-2 w-36 font-semibold pl-8">
-                              <div className="flex items-center justify-end min-h-[2.5rem]">
-                                {injectedIncomeState.toLocaleString()} RON
-                              </div>
-                            </td>
-                          </tr>
-                          <tr className="border-b border-gray-300">
-                            <td className="text-left py-2 pl-8">
-                              <div className="flex items-center min-h-[2.5rem]">
-                                {locale === 'ro' ? 'Venituri anuale estimate din sistemul Fotovoltaic' : 'Estimated Annual Revenue from PV System'}
-                              </div>
-                            </td>
-                            <td className="text-right py-2 w-36 font-semibold pl-8">
-                              <div className="flex items-center justify-end min-h-[2.5rem]">
-                                {annualPVIncomeState.toLocaleString()} RON
-                              </div>
-                            </td>
-                            <td className="text-left py-2 pl-8">
-                              <div className="flex items-center min-h-[2.5rem]">
-                                {locale === 'ro' ? 'Venituri anuale estimate cu sistem de stocare' : 'Estimated Annual Revenue with Storage'}
-                              </div>
-                            </td>
-                            <td className="text-right py-2 w-36 font-semibold pl-8">
-                              <div className="flex items-center justify-end min-h-[2.5rem]">
-                                {annualStorageIncomeState.toLocaleString()} RON
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="text-left py-2 pl-8">
-                              <div className="flex items-center min-h-[2.5rem]">
-                                {locale === 'ro' ? 'Amortizare Sistem fotovoltaic (fara GRANT)' : 'Payback Period (PV only)'}
-                              </div>
-                            </td>
-                            <td className="text-right py-2 w-36 font-semibold pl-8">
-                              <div className="flex items-center justify-end min-h-[2.5rem]">
-                                {paybackPvState} {locale === 'ro' ? 'ani' : 'years'}
-                              </div>
-                            </td>
-                            <td className="text-left py-2 pl-8">
-                              <div className="flex items-center min-h-[2.5rem]">
-                                {locale === 'ro' ? 'Amortizare Sistem Fotovoltaic + Stocare (fara GRANT)' : 'Payback Period (PV + Storage)'}
-                              </div>
-                            </td>
-                            <td className="text-right py-2 w-36 font-semibold pl-8">
-                              <div className="flex items-center justify-end min-h-[2.5rem]">
-                                {paybackBessState} {locale === 'ro' ? 'ani' : 'years'}
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div className="max-w-4xl mx-auto mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 px-4">
+                      {[
+                        { labelRo: 'Producție autoconsumată estimată', labelEn: 'Estimated Self-Consumed Production', value: selfConsumedState.toLocaleString() + ' kWh' },
+                        { labelRo: 'Surplus energetic estimat', labelEn: 'Estimated Energy Surplus', value: surplusEnergyState.toLocaleString() + ' kWh' },
+                        { labelRo: 'Economie din autoconsum', labelEn: 'Savings from Self-Consumption', value: selfSavingState.toLocaleString() + ' RON' },
+                        { labelRo: 'Venit din energia injectată', labelEn: 'Revenue from Injected Energy', value: injectedIncomeState.toLocaleString() + ' RON' },
+                        { labelRo: 'Venituri anuale estimate din sistemul Fotovoltaic', labelEn: 'Estimated Annual Revenue from PV System', value: annualPVIncomeState.toLocaleString() + ' RON' },
+                        { labelRo: 'Venituri anuale estimate cu sistem de stocare', labelEn: 'Estimated Annual Revenue with Storage', value: annualStorageIncomeState.toLocaleString() + ' RON' },
+                        { labelRo: 'Amortizare Sistem fotovoltaic (fara GRANT)', labelEn: 'Payback Period (PV only)', value: paybackPvState + (locale === 'ro' ? ' ani' : ' years') },
+                        { labelRo: 'Amortizare Sistem Fotovoltaic + Stocare (fara GRANT)', labelEn: 'Payback Period (PV + Storage)', value: paybackBessState + (locale === 'ro' ? ' ani' : ' years') }
+                      ].map((item, idx) => (
+                        <div key={idx} className="flex justify-between items-center bg-white p-4 rounded-lg shadow border border-green-700">
+                          <span className="text-gray-800 text-sm sm:text-base font-medium text-left">
+                            {locale === 'ro' ? item.labelRo : item.labelEn}
+                          </span>
+                          <span className="min-w-[6rem] text-right font-semibold text-green-700">
+                            {item.value}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -825,9 +948,6 @@ export default function FondulModernizareAutoconsum() {
                                   ? 'Capacitate nou instalată pentru producerea energiei din surse regenerabile (eolian, solar, hidro)'
                                   : 'New installed capacity for renewable energy production (wind, solar, hydro)'}
                               </span>
-                              <span className="inline-block w-28 text-right">
-                                {Number(((pvSystem ?? 0) / 1000).toFixed(2)).toLocaleString()}
-                              </span>
                             </div>
                           </td>
                           <td className="border border-gray-300 p-2">MW</td>
@@ -845,9 +965,6 @@ export default function FondulModernizareAutoconsum() {
                                 {locale === 'ro'
                                   ? 'Reducerea anuală estimată a emisiilor de gaze cu efect de seră'
                                   : 'Estimated annual reduction of greenhouse gas emissions'}
-                              </span>
-                              <span className="inline-block w-28 text-right">
-                                {Number((annualProductionState * 0.6119).toFixed(1)).toLocaleString()}
                               </span>
                             </div>
                           </td>
@@ -867,9 +984,6 @@ export default function FondulModernizareAutoconsum() {
                                   ? 'Producția medie anuală de energie din surse regenerabile'
                                   : 'Average annual renewable energy production'}
                               </span>
-                              <span className="inline-block w-28 text-right">
-                                {annualProductionState.toLocaleString()}
-                              </span>
                             </div>
                           </td>
                           <td className="border border-gray-300 p-2">MWh/an</td>
@@ -887,19 +1001,6 @@ export default function FondulModernizareAutoconsum() {
                                 {locale === 'ro'
                                   ? 'Producția totală de energie regenerabilă pe perioada de referință'
                                   : 'Total renewable energy production for the reference period'}
-                              </span>
-                              <span className="inline-block w-28 text-right">
-                                {
-                                  (() => {
-                                    const years = 20;
-                                    const degradation = 0.005; // 0.5%
-                                    let totalProduction = 0;
-                                    for (let i = 0; i < years; i++) {
-                                      totalProduction += annualProductionState * Math.pow(1 - degradation, i);
-                                    }
-                                    return totalProduction.toLocaleString(undefined, {maximumFractionDigits: 0});
-                                  })()
-                                }
                               </span>
                             </div>
                           </td>
@@ -929,11 +1030,6 @@ export default function FondulModernizareAutoconsum() {
                                   ? <>Ponderea estimată pentru autoconsum din producția totală<span className="text-red-500">*</span></>
                                   : <>Estimated share for self-consumption from total production<span className="text-red-500">*</span></>}
                               </span>
-                              <span className="inline-block w-28 text-right">
-                                {annualProductionState > 0
-                                  ? Number(((selfConsumedState / annualProductionState) * 100).toFixed(1)).toLocaleString()
-                                  : '0.0'}
-                              </span>
                             </div>
                           </td>
                           <td className="border border-gray-300 p-2">%</td>
@@ -953,11 +1049,6 @@ export default function FondulModernizareAutoconsum() {
                                 {locale === 'ro'
                                   ? 'Factorul de capacitate al instalației'
                                   : 'Plant capacity factor'}
-                              </span>
-                              <span className="inline-block w-28 text-right">
-                                {annualProductionState > 0 && pvSystem > 0
-                                  ? Number(((annualProductionState / (pvSystem * 8760)) * 100).toFixed(2)).toLocaleString()
-                                  : '0.00'}
                               </span>
                             </div>
                           </td>
@@ -992,30 +1083,44 @@ export default function FondulModernizareAutoconsum() {
                         ? 'Valoarea ajutorului de stat solicitat pe MW'
                         : 'Requested state aid value per MW'}
                       <span className="ml-2 font-semibold text-green-700">
-                        {stateAidPerMW.toLocaleString()} EUR
+                        {stateAidPerMW ? stateAidPerMW.toLocaleString() : ''} EUR
                       </span>
                     </label>
                     <input
-                      type="number"
-                      min={1}
-                      max={450000}
-                      step={1}
-                      value={stateAidPerMW}
+                      type="text"
+                      value={formatNumberInput(stateAidPerMW?.toString() ?? '')}
                       onChange={e => {
-                        let val = Number(e.target.value);
-                        if (val < 1) val = 1;
+                        let raw = e.target.value.replace(/\D/g, '');
+                        if (!raw) {
+                          setStateAidPerMW(undefined);
+                          return;
+                        }
+                        let val = Number(raw);
+                        if (val < 1000) val = 1000;
                         if (val > 450000) val = 450000;
+                        // Rotunjire la multiplu de 1000
+                        val = Math.round(val / 1000) * 1000;
                         setStateAidPerMW(val);
                       }}
+                      onBlur={() => {
+                        if (!stateAidPerMW || stateAidPerMW < 1000) setStateAidPerMW(1000);
+                      }}
                       className="mb-2 w-full border border-gray-300 rounded px-2 py-1 text-sm text-gray-900 bg-gray-100 focus:bg-white"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                     />
                     <input
                       type="range"
-                      min={1}
+                      min={1000}
                       max={450000}
-                      step={1}
-                      value={stateAidPerMW}
-                      onChange={e => setStateAidPerMW(Number(e.target.value))}
+                      step={1000}
+                      value={stateAidPerMW ?? 1000}
+                      onChange={e => {
+                        let val = Number(e.target.value);
+                        if (val < 1000) val = 1000;
+                        if (val > 450000) val = 450000;
+                        setStateAidPerMW(val);
+                      }}
                       className="w-full h-2 bg-gray-300 rounded-full appearance-none cursor-pointer
                         [&::-webkit-slider-thumb]:appearance-none
                         [&::-webkit-slider-thumb]:h-5
@@ -1093,22 +1198,38 @@ export default function FondulModernizareAutoconsum() {
                   </table>
                 </div>
                 {/* Amortizare investitie section */}
-                <div className="mt-6 max-w-md mx-auto bg-white border border-green-700 rounded-lg shadow p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-4 text-green-700">
-                    {locale === 'ro' ? 'Amortizare investiție (ani)' : 'Investment Payback Period (years)'}
-                  </h3>
-                  <p className="text-4xl font-bold text-gray-900">
-                    {(() => {
-                      const contributie = Math.max(0, storageCostRonState - stateAidTotalRON);
-                      const venituriAnuale = annualStorageIncomeState;
-                      if (venituriAnuale > 0) {
-                        const amortizare = contributie / venituriAnuale;
-                        return amortizare.toFixed(1).toLocaleString();
-                      } else {
-                        return '—';
-                      }
-                    })()}
-                  </p>
+                <div className="mt-6 max-w-md mx-auto bg-white border border-green-700 rounded-lg shadow p-6">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-xl font-semibold text-green-700">
+                      {locale === 'ro' ? 'Amortizare investiție (ani)' : 'Investment Payback Period (years)'}
+                    </h3>
+                    <span className="text-4xl font-bold text-gray-900 whitespace-nowrap">
+                      {(() => {
+                        const contributie = Math.max(0, storageCostRonState - stateAidTotalRON);
+                        const venituriAnuale = annualStorageIncomeState;
+                        if (venituriAnuale > 0) {
+                          const amortizare = contributie / venituriAnuale;
+                          return Math.round(amortizare).toLocaleString();
+                        } else {
+                          return '—';
+                        }
+                      })()}
+                    </span>
+                  </div>
+                </div>
+                {/* Nota importanta dupa tabel si amortizare */}
+                <div className="max-w-6xl mx-auto mt-4 px-6 text-gray-700 text-sm italic text-justify">
+                  {locale === 'ro' ? (
+                    <>
+                      <strong>Notă importantă:</strong> Bugetul prezentat se referă strict la componenta sistemului fotovoltaic și a stocării energiei și nu acoperă eventuale costuri suplimentare, care trebuie luate în considerare în planificarea financiară completă a proiectului.
+                      <br />
+                      Proiectul complet va include si cheltuieli neeligibile dar obligatorii conform ghidului, dar poate include și alte cheltuieli necesare pentru finalizarea implementării, cum ar fi eventuale lucrări aferente avizului tehnic de racordare (ATR), servicii de consultanță, taxe și alte costuri administrative.  Aceste cheltuieli suplimentare sunt direct dependente de solicitant și de particularitățile proiectului său si nu toate sunt eligibile.
+                    </>
+                  ) : (
+                    <>
+                      <strong>Important note:</strong> The project may include other necessary expenses to complete the implementation, such as works related to the technical connection approval (ATR), non-eligible but mandatory costs according to the guide, consultancy services, fees, and other administrative costs. The presented budget strictly covers the photovoltaic system and energy storage components and does not account for these additional costs, which should be considered in the full financial planning of the project. These additional expenses are directly dependent on the applicant and the specifics of their project.
+                    </>
+                  )}
                 </div>
                 </div>
             </div>
