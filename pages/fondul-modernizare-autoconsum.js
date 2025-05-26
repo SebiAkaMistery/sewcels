@@ -3,8 +3,7 @@ import Image from 'next/image';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import ContactModal from '../components/ContactModal'; // Assuming this path is correct
-import { Bar } from 'react-chartjs-2';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+import dynamic from 'next/dynamic';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,7 +14,9 @@ import {
   Legend,
 } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+const Bar = dynamic(() => import('react-chartjs-2').then(mod => mod.Bar), { ssr: false });
 
 export default function FondulModernizareAutoconsum() {
   const { locale } = useRouter();
@@ -435,9 +436,14 @@ function customStorageRoundup(value) {
           })}}
         />
         <link
+          rel="preload"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
-          rel="stylesheet"
+          as="style"
+          onLoad="this.rel='stylesheet'"
         />
+        <noscript>
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+        </noscript>
       </Head>
       <div className="max-w-6xl mx-auto my-10">
         <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-lg">
@@ -445,9 +451,11 @@ function customStorageRoundup(value) {
             autoPlay
             muted
             loop
-            playsInline // playsinline for iOS
+            playsInline
+            preload="metadata"
+            poster="/images/video-modernizare-poster.jpg"
             className="w-full h-full object-cover"
-            src="/videos/video-modernizare.mp4" // Ensure this path is correct in your public folder
+            src="/videos/video-modernizare.mp4"
           />
           <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-40 text-white px-6 text-center">
             <h2 className="text-xl sm:text-2xl font-semibold mb-2 max-w-full break-words drop-shadow-md">

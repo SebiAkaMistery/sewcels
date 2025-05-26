@@ -16,5 +16,11 @@
     "files": [
       "static/chunks/node_modules_next_script_js.js"
     ]
+  },
+  "fondul-modernizare-autoconsum.js -> react-chartjs-2": {
+    "id": "fondul-modernizare-autoconsum.js -> react-chartjs-2",
+    "files": [
+      "static/chunks/node_modules_react-chartjs-2_dist_index_js.js"
+    ]
   }
 }
