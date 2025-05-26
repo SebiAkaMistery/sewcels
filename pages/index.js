@@ -149,8 +149,8 @@ export default function Home() {
           >
             <div className="absolute inset-0 bg-black bg-opacity-30 z-0 rounded-lg" />
             <div className="relative z-10 flex flex-col justify-between h-full">
-              <h3 className="text-3xl font-semibold text-green-700 mb-3">
-                {locale === 'ro' ? 'Grant Electric Up' : 'Electric Up Grant'}
+              <h3 className="text-white text-3xl font-semibold mb-3">
+                {locale === 'ro' ? 'Programul Electric Up 2' : 'Electric Up 2 Program'}
               </h3>
               <p className="text-white text-justify mb-6">
                 Creşterea capacităţii de producere și stocare a energiei electrice din surse regenerabile cu o putere instalată
