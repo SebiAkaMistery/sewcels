@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Navbar from '../components/Navbar';
 import Image from 'next/image';
+import Footer from '../components/footer';
 
 export default function Home() {
   const { t, i18n } = useTranslation('common');
@@ -104,6 +105,70 @@ export default function Home() {
           </motion.div>
         </motion.div>
       </div>
+      {/* Oportunități de finanțare section */}
+      <div className="max-w-6xl mx-auto mt-12 px-4 py-12">
+        <h2 className="text-3xl font-bold text-green-700 mb-8 text-center">
+          Noi oportunități de finanțare
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          {/* Card for Fondul Modernizare Autoconsum */}
+          <div
+            className="bg-white rounded-lg shadow border border-green-700 p-16 flex flex-col justify-between relative overflow-hidden"
+            style={{
+              backgroundImage: 'url(/images/modernizare.webp)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          >
+            <div className="absolute inset-0 bg-black bg-opacity-40 z-0 rounded-lg" />
+            <div className="relative z-10 flex flex-col justify-between h-full">
+              <h3 className="text-3xl font-semibold text-white mb-3">{locale === 'ro' ? 'Fondul pentru Modernizare Autoconsum' : 'Self-Consumption Modernization Fund'}</h3>
+              <p className="text-white text-justify mb-6">
+                {locale === 'ro'
+                  ? 'Sprijinirea investiţiilor în noi capacităţi de producere a energiei electrice produsă din surse regenerabile pentru autoconsum, aferent celui de-al II-lea apel bazat pe procedură de ofertare concurențială'
+                  : 'Key instrument for the development and implementation of photovoltaic self-consumption systems.'}
+              </p>
+              <Link
+                href="/fondul-modernizare-autoconsum"
+                className="mb-2 inline-block font-semibold px-10 py-5 rounded-full border border-green-700 text-white bg-transparent hover:bg-gradient-to-r hover:from-[rgba(24,130,128,0.9)] hover:to-[rgba(110,186,77,0.6)] hover:text-white transition-colors duration-300 text-xl"
+              >
+                {locale === 'ro' ? 'Vezi detalii' : 'View details'}
+              </Link>
+            </div>
+          </div>
+          {/* Card for Grant Electric Up */}
+          <div
+            className="rounded-lg shadow border border-green-700 p-16 flex flex-col justify-between relative overflow-hidden"
+            style={{
+              backgroundImage: 'url(/images/e-up2.webp)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
+          >
+            <div className="absolute inset-0 bg-black bg-opacity-30 z-0 rounded-lg" />
+            <div className="relative z-10 flex flex-col justify-between h-full">
+              <h3 className="text-3xl font-semibold text-green-700 mb-3">
+                {locale === 'ro' ? 'Grant Electric Up' : 'Electric Up Grant'}
+              </h3>
+              <p className="text-white text-justify mb-6">
+                Creşterea capacităţii de producere și stocare a energiei electrice din surse regenerabile cu o putere instalată
+                cuprinsă între 27 kWp - 150 kWp pentru asigurarea consumului propriu și dezvoltarea electro-mobilității reale la
+                nivel național prin creșterea numărului staţiilor de reîncărcare pentru vehicule electrice şi electrice hibrid plug-in,
+                precum și dezvoltarea gradului de utitlizare a energiei din surse regenerabile în încălzire și răcire
+              </p>
+              <Link
+                href="/electric-up2"
+                className="mb-2 inline-block font-semibold px-10 py-5 rounded-full border border-green-700 text-white bg-transparent hover:bg-gradient-to-r hover:from-[rgba(24,130,128,0.9)] hover:to-[rgba(110,186,77,0.6)] hover:text-white transition-colors duration-300 text-xl"
+              >
+                {locale === 'ro' ? 'Vezi detalii' : 'View details'}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
     </>
   );
 }
