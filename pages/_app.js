@@ -3,18 +3,10 @@ import { appWithTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 const Layout = dynamic(() => import('../components/Layout'), { ssr: false });
-// Removed dynamic import of Script as per instructions
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
 import ScrollIndicator from '../components/ScrollIndicator';
-
-// 🔧 Recomandări generale pentru performanță:
-// - Folosește `next/image` pentru imagini în loc de <img src="" />
-// - Activează compresia GZIP/Brotli pe server
-// - Optimizează dimensiunea fișierelor video din `/public/videos`
-// - Folosește `loading="lazy"` pentru imagini și iframe-uri
-// - Evită `console.log()` inutile în producție
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -23,18 +15,25 @@ function MyApp({ Component, pageProps }) {
   const isHome = router.pathname === '/';
 
   useEffect(() => {
-    function onAccept() {
-      if (window.Cookiebot) {
-        if (window.Cookiebot.consent.statistics) {
-          window.gtag('consent', 'update', { analytics_storage: 'granted' });
-        }
-        if (window.Cookiebot.consent.marketing) {
-          window.gtag('consent', 'update', { ad_storage: 'granted' });
-        }
+    function updateConsent() {
+      if (window.Cookiebot && window.Cookiebot.consents) {
+        window.gtag('consent', 'update', {
+          ad_storage: window.Cookiebot.consents.marketing ? 'granted' : 'denied',
+          analytics_storage: window.Cookiebot.consents.statistics ? 'granted' : 'denied',
+        });
       }
     }
-    window.addEventListener('CookiebotOnAccept', onAccept);
-    return () => window.removeEventListener('CookiebotOnAccept', onAccept);
+
+    window.addEventListener('CookiebotOnAccept', updateConsent);
+    window.addEventListener('CookiebotOnDecline', updateConsent);
+
+    // Aplică consimțământul curent la mount (în caz de reload pagina)
+    updateConsent();
+
+    return () => {
+      window.removeEventListener('CookiebotOnAccept', updateConsent);
+      window.removeEventListener('CookiebotOnDecline', updateConsent);
+    };
   }, []);
 
   return (
@@ -46,6 +45,7 @@ function MyApp({ Component, pageProps }) {
           <meta name="robots" content="index, follow" />
           <link rel="canonical" href={`https://sewcels.ro${router.asPath}`} />
           <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
           {/* Google Ads Conversion Tracking */}
           <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17121530553"></script>
           <script
@@ -58,6 +58,8 @@ function MyApp({ Component, pageProps }) {
               `,
             }}
           />
+
+          {/* Cookiebot Consent Banner */}
           <script
             id="Cookiebot"
             src="https://consent.cookiebot.com/uc.js"
@@ -73,9 +75,7 @@ function MyApp({ Component, pageProps }) {
         ) : (
           <Layout>
             <Component {...pageProps} />
-            {!isHome && (
-              <ScrollIndicator />
-            )}
+            {!isHome && <ScrollIndicator />}
           </Layout>
         )}
       </>
