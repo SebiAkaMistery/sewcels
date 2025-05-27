@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import { appWithTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 const Layout = dynamic(() => import('../components/Layout'), { ssr: false });
 // Removed dynamic import of Script as per instructions
 import { useRouter } from 'next/router';
@@ -20,6 +21,21 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' });
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const isHome = router.pathname === '/';
+
+  useEffect(() => {
+    function onAccept() {
+      if (window.Cookiebot) {
+        if (window.Cookiebot.consent.statistics) {
+          window.gtag('consent', 'update', { analytics_storage: 'granted' });
+        }
+        if (window.Cookiebot.consent.marketing) {
+          window.gtag('consent', 'update', { ad_storage: 'granted' });
+        }
+      }
+    }
+    window.addEventListener('CookiebotOnAccept', onAccept);
+    return () => window.removeEventListener('CookiebotOnAccept', onAccept);
+  }, []);
 
   return (
     <div className={inter.className}>
@@ -42,6 +58,13 @@ function MyApp({ Component, pageProps }) {
               `,
             }}
           />
+          <script
+            id="Cookiebot"
+            src="https://consent.cookiebot.com/uc.js"
+            data-cbid="a33c7fe7-e4d0-40cb-bb0e-66b549a1b4f6"
+            type="text/javascript"
+            async
+          ></script>
         </Head>
         {isHome ? (
           <>
