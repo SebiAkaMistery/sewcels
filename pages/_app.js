@@ -30,13 +30,18 @@ function MyApp({ Component, pageProps }) {
           <meta name="robots" content="index, follow" />
           <link rel="canonical" href={`https://sewcels.ro${router.asPath}`} />
           <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-          <script async src="https://www.googletagmanager.com/gtag/js?id=G-KB43EFE5KV"></script>
-          <script dangerouslySetInnerHTML={{ __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-KB43EFE5KV', { page_path: window.location.pathname });
-          ` }} />
+          {/* Google Ads Conversion Tracking */}
+          <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17121530553"></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'AW-17121530553');
+              `,
+            }}
+          />
         </Head>
         {isHome ? (
           <>
